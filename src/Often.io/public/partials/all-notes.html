@@ -1,0 +1,22 @@
+<div class="spinner" ng-show="loading">
+	<img src="/images/spinner.gif" alt="loading..."/>
+</div>
+
+
+<div class="masonry-container" masonry="{ 'isFitWidth': 'true', 'transitionDuration': '0' }" column-width="20">
+	<div class="masonry-brick box" ng-repeat="note in notes"  on-finish-render="renderComplete">
+		<input type="hidden" id="noteId" ng-bind="note._id" />
+		<p class="date" am-time-ago="note.noteDate"></p>
+		<a href="/#/{{note.noteOwner}}/{{note.noteSlug.toLowerCase()}}"><h4 ng-bind="note.noteTitle"></h4></a>
+		<p class="desc" ng-bind="note.noteDesc"></p>
+		<div ng-repeat="code in note.codeList">
+			<p class="desc" ng-bind="code.codeDesc"></p>
+			<figure>
+				<figcaption ng-bind="code.codeTitle"></figcaption>
+				<textarea class="code-snippet" ng-bind="code.codeSnippet"
+				          data-parser="{{code.codeParser}}"></textarea>
+			</figure>
+		</div>
+		<img class="star" src="/images/unstar.png" />
+	</div>
+</div>

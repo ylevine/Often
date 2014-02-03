@@ -1,0 +1,33 @@
+<div class="spinner" ng-show="loading">
+	<img src="/images/spinner.gif" alt="loading..."/>
+</div>
+<div class="note-container" ng-show="!loading">
+	<article class="note">
+		<h4 am-time-ago="note.noteDate"></h4>
+
+		<h1 ng-bind="note.noteTitle"></h1>
+
+		<p class="desc" ng-bind="note.noteDesc"></p>
+
+		<div ng-repeat="code in note.codeList" on-finish-render="renderComplete">
+			<p class="desc" ng-bind="code.codeDesc"></p>
+			<figure>
+				<figcaption ng-bind="code.codeTitle"></figcaption>
+				<textarea class="code-snippet" ng-bind="code.codeSnippet"
+				          data-parser="{{code.codeParser}}"></textarea>
+			</figure>
+		</div>
+
+		<img class="star" src="/images/unstar.png"/>
+
+		<ul class="nav nav-pills nav-stacked comment-button" ng-show="{{note.comments.length > 0}}">
+			<li class="active">
+				<a class="show-comments">
+					<span class="badge pull-right" ng-bind="note.comments.length"></span>
+					Load Comments
+				</a>
+			</li>
+		</ul>
+
+	</article>
+</div>

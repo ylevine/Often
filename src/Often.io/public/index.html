@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="often">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css"
+	      href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css"
+	      href="/stylesheets/style.css"/>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.21.0/codemirror.min.css"/>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.21.0/theme/ambiance.min.css"/>
+</head>
+<body>
+<div class="container-fluid">
+
+	<!-- NAVIGATION STARTS -->
+	<!----------------------->
+
+	<nav id="header" class="navbar navbar-default navbar-fixed-top top-nav" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+			        data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/#/">Code You < <span class="app-title">Often!</span> /> Use</a>
+
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Type to start searching!" searchinput>
+						</div>
+					</form>
+				</li>
+				<li>
+					<div><button class="btn btn-primary navbar-btn member-btn" memberonly="/create">Create Note</button></div>
+				</li>
+				<li>
+					<div><a class="btn btn-primary navbar-btn" href="/#/login" ng-show="!logged">Login</a></div>
+				</li>
+				<li>
+					<div><a class="btn btn-primary navbar-btn" href="/#/{{currentUser}}" ng-show="logged">My Notes</a></div>
+				</li>
+				<li>
+					<div><button class="btn btn-primary navbar-btn member-btn" href="/#/logoff" ng-show="logged" logoff>Log Off</button></div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- NAVIGATION ENDS -->
+	<!--------------------->
+
+	<div class="row-fluid" ng-view></div>
+
+	<!-- FOOTER STARTS -->
+	<!------------------->
+
+	<div class="footer">
+		<div class="copyright">
+			Often.io is an open source project by Won Song, released under the MIT License.<br/>
+			Copyright(c) 2014 Won Song. All Rights Reserved.
+		</div>
+	</div>
+
+	<!-- FOOTER ENDS -->
+	<!----------------->
+
+	</div>
+</div>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript"
+        src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="/libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="/javascripts/often.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0rc3/angular-route.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.21.0/codemirror.min.js"></script>
+<script type="text/javascript" src="/javascripts/often.js"></script>
+<script type="text/javascript" src="/libs/moment.js"></script>
+<script type="text/javascript" src="/libs/angular-moment.js"></script>
+<script type="text/javascript" src="/libs/loading-bar.js"></script>
+<script type="text/javascript" src="/libs/imagesloaded.js"></script>
+<script type="text/javascript" src="/libs/angular-masonry.js"></script>
+<script type="text/javascript" src="/libs/http-auth-interceptor.js"></script>
+<script type="text/javascript" src="/javascripts/app.js"></script>
+<script type="text/javascript" src="/javascripts/controllers.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<div class="create-form">
+	<h1>Create New Note</h1>
+
+	<p>Use this form to create a new note. At least one code snippet is required. Once code snippets are added, you
+		can re-arrange them on the table right side.</p>
+
+	<form class="form-horizontal" role="form">
+		<div class="form-left">
+			<div class="form-group">
+				<label for="input-note-title" class="col-sm-2 control-label">Title <span class="required">*</span></label>
+
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="input-note-title" placeholder="Note Title"
+					       ng-model="note.noteTitle">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-note-tags" class="col-sm-2 control-label">Tags <span class="required">*</span></label>
+
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="input-note-tags" placeholder="Note Tags"
+					       taginput>
+
+					<div id="tag-container">
+						<button ng-repeat="tag in note.noteTags" class="btn btn-warning btn-tag" ng-bind="tag.tagName"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-right">
+			<div class="form-group">
+				<div class="col-sm-12">
+					<table class="table" id="codeList">
+						<tbody>
+						<tr ng-repeat="code in note.codeList">
+							<td class="col-sm-9" ng-bind="code.codeTitle"></td>
+							<td>Edit | Delete</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10 text-right">
+				<button ng-click="update(user)" class="btn btn-primary">Preview</button>
+				<button ng-click="updateNote(note)" class="btn btn-primary">Publish Note</button>
+			</div>
+		</div>
+	</form>
+	<div class="snippet-form-container">
+		<form class="form-horizontal" role="form">
+			<h2>Insert Code Snippets</h2>
+
+			<p>Use this form to insert a code snippet to the note. Once the code snippet is inserted, you can click
+				"Edit" or "Delete" button to edit or delete.</p>
+
+			<div class="form-group">
+				<label for="input-code-title" class="col-sm-2 control-label">Code Title <span
+						class="required">*</span></label>
+
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="input-code-title" placeholder="Code Title"
+					       ng-model="code.codeTitle">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input-code-desc" class="col-sm-2 control-label">Description</label>
+
+				<div class="col-sm-10">
+					<textarea class="form-control" id="input-code-desc" placeholder="Code Description"
+					          ng-model="code.codeDesc"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="select-language" class="col-sm-2 control-label">Language <span
+						class="required">*</span></label>
+
+				<div class="col-sm-10">
+					<select class="form-control" id="select-language" ng-model="code.codeParser" lang>
+						<option value="">--Select--</option>
+						<option value="clike">C#</option>
+						<option value="javascript">JavaScript</option>
+						<option value="css">CSS</option>
+						<option value="clike">Java</option>
+						<option value="htmlembedded">Razor</option>
+						<option value="htmlembedded">JSP</option>
+						<option value="htmlmixed">HTML</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="codesnippet-textarea" class="col-sm-2 control-label">Code <span
+						class="required">*</span></label>
+
+				<div class="col-sm-10">
+					<textarea class="form-control" id="codesnippet-textarea" ng-model="code.codeSnippet"
+					          jadedit></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10 text-right">
+					<button id="add-code-button" ng-click="updateCode(code)" class="btn btn-success">Add Code Snippet
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
