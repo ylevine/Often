@@ -10,6 +10,12 @@ Often runs on the Node.js platform and is required to run the application locall
 
 http://nodejs.org/
 
+#Installing Python
+
+Often uses `bcrypt` package that depends upon Python to be installed to use the it. You can install the latest runtime from the Python download page
+
+http://www.python.org/download/
+
 #Installing Dependencies
 
 From your console navigate to the project folder `Often.io` that contains the file `package.json`. Node.js comes with a package manager, and project dependencies support.
