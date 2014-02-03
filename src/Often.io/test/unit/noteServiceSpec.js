@@ -6,4 +6,4 @@ describe('noteService', function() {
 	beforeEach(module('often.services'));
 
 
-})
+});
