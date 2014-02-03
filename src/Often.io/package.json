@@ -10,7 +10,9 @@
 		"jade": "*",
 		"less-middleware": "*",
 		"mongoose": "*",
-		"bcrypt": "*"
+		"bcrypt": "*",
+		"jasmine-node": "*",
+		"phantomjs": "*"
 	},
 	"devDependencies": {
 		"grunt-contrib-uglify": "~0.3.2",
