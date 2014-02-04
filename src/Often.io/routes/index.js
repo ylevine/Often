@@ -1,3 +1,3 @@
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
+exports.Home = projRequire('/routes/home');
+exports.Note = projRequire('/routes/note');
+exports.User = projRequire('/routes/user');
