@@ -7,7 +7,7 @@ lib-cov
 *.out
 *.pid
 *.gz
-src/Often.io/public/bower_components
+public/bower_components
 
 pids
 logs
