@@ -43,6 +43,8 @@ often.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
 }
 ]);
 
+var oftenRepository = angular.module('oftenRepositoryModule', []);
+
 often.directive('onFinishRender', function ($timeout) {
 	return {
 		restrict: 'A',
