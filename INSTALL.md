@@ -12,9 +12,23 @@ http://nodejs.org/
 
 #Installing Python
 
-Often uses `bcrypt` package that depends upon Python to be installed to use the it. You can install the latest runtime from the Python download page
+Often uses `bcrypt` package that depends upon Python to be installed to use the it. Do not install the `v3.x.x` version of Python. For this install guide I used Python 2.7.6 32-bit for Windows.
 
 http://www.python.org/download/
+
+#Installing bcrypt
+
+Bcrypt has specific dependencies related to OpenSSL. For the latest guide on building bcrypt visit their github page. 
+
+https://github.com/ncb000gt/node.bcrypt.js
+
+Bcrypt is challenging to build from source for Windows users. You will need the Visual Studio 2010 C#/C++ compiler, the full OpenSLL library with source and also the `node-gyp` build tool.
+
+#Installing MongoDB
+
+Often requires a connect to a MongoDB server as the database engine. Installing and running MongoDB is straight forward.
+
+http://www.mongodb.org
 
 #Installing Dependencies
 
