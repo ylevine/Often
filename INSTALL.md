@@ -41,5 +41,3 @@ You can perform an automatic download of all the dependencies for this project.
 Once all the packages are installed you can run Often using `npm`.
 
     C:\github\Often\src\Often.io\>npm start
-
-Enjoy,
