@@ -1,7 +1,7 @@
-var Note = require('../models/note');
+var models = projRequire('/models/index');
 
 exports.getAll = function (req, res) {
-	Note.getAll(function (notes) {
+	models.Note.getAll(function (notes) {
 		res.json({
 			allNotes: notes
 		});
@@ -9,7 +9,7 @@ exports.getAll = function (req, res) {
 };
 
 exports.getSearchedNotes = function (req, res) {
-	Note.getAll(function (notes) {
+	models.Note.getAll(function (notes) {
 		var searchToken = req.query.searchToken.toLowerCase();
 
 		var resultData = [];
@@ -60,7 +60,7 @@ exports.getSearchedNotes = function (req, res) {
 };
 
 exports.getUserNotes = function (req, res) {
-	Note.findUserNotes(req.params.username, function (notes) {
+	models.Note.findUserNotes(req.params.username, function (notes) {
 		res.json({
 			allNotes: notes
 		})
@@ -73,6 +73,7 @@ exports.saveNote = function (req, res) {
 		res.end();
 	}
 
+	// TODO: This is internal schema object. Shouldn't be done here, should be in NoteModel
 	var newNote = new Note();
 	newNote.noteTitle = req.body.noteTitle;
 	newNote.noteSlug = newNote.noteTitle.trim().replace(/ +/g, '-').toLowerCase();
@@ -81,7 +82,7 @@ exports.saveNote = function (req, res) {
 	newNote.codeList = req.body.codeList;
 	newNote.noteTags = req.body.noteTags;
 
-	Note.saveNote(newNote, function (id) {
+	models.Note.saveNote(newNote, function (id) {
 		res.json({
 			isSuccessful: true,
 			newNoteId: id
@@ -90,7 +91,7 @@ exports.saveNote = function (req, res) {
 };
 
 exports.getComments = function (req, res) {
-	Note.findComments(req.params.noteId, function (comments) {
+	models.Note.findComments(req.params.noteId, function (comments) {
 		res.json({
 			comments: comments
 		});
@@ -98,7 +99,7 @@ exports.getComments = function (req, res) {
 }
 
 exports.postComment = function (req, res) {
-	Note.postComment(req.body.noteId, req.body.noteContents, req.session.user.username, function (result) {
+	models.Note.postComment(req.body.noteId, req.body.noteContents, req.session.user.username, function (result) {
 		res.json({
 			result: result
 		});
@@ -106,7 +107,7 @@ exports.postComment = function (req, res) {
 }
 
 exports.star = function (req, res) {
-	Note.star(req.params.noteId, req.session.user.username, function (starred) {
+	models.Note.star(req.params.noteId, req.session.user.username, function (starred) {
 		res.json({
 			star: starred
 		});
@@ -114,7 +115,7 @@ exports.star = function (req, res) {
 }
 
 exports.getNote = function (req, res) {
-	Note.findNote(req.params.username.toLowerCase(), req.params.slug.toLowerCase(), function (note) {
+	models.Note.findNote(req.params.username.toLowerCase(), req.params.slug.toLowerCase(), function (note) {
 		res.json({
 			note: note
 		});
