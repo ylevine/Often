@@ -1,4 +1,4 @@
-var User = require('../models/user');
+var models = projRequire('/models/index');
 
 exports.isAuthenticated = function (req, res) {
 	if (req.session.user) {
@@ -8,10 +8,10 @@ exports.isAuthenticated = function (req, res) {
 		res.status(401);
 		res.end();
 	}
-}
+};
 
 exports.authenticate = function (req, res) {
-	User.authenticate(req.body.name.toLowerCase(), req.body.password, function (err, user) {
+	models.User.authenticate(req.body.name.toLowerCase(), req.body.password, function (err, user) {
 		if (user) {
 			req.session.regenerate(function () {
 				req.session.user = user;
@@ -32,7 +32,7 @@ exports.logoff = function (req, res) {
 		res.status(200);
 		res.end();
 	});
-}
+};
 
 exports.register = function(req, res) {
 	var isValid = true;
@@ -47,6 +47,7 @@ exports.register = function(req, res) {
 		res.redirect('/user/register');
 
 	if (isValid) {
+		// TODO: This is an internal schema object to UserModel. Needs to be moved.
 		var user = new User({
 			username: req.body.username.toLowerCase(),
 			password: req.body.password,
@@ -59,7 +60,7 @@ exports.register = function(req, res) {
 				result.message = "Registration failed.";
 			}
 
-			User.authenticate(req.body.username.toLowerCase(), req.body.password, function (err, user) {
+			models.User.authenticate(req.body.username.toLowerCase(), req.body.password, function (err, user) {
 				if (user) {
 					req.session.regenerate(function () {
 						req.session.user = user;
@@ -81,4 +82,4 @@ exports.register = function(req, res) {
 
 		res.json(result);
 	}
-}
+};

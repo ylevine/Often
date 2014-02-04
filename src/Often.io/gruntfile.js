@@ -2,6 +2,14 @@ module.exports = function (grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		copy: {
+			main: {
+				expand: true,
+				cwd: 'bower_components',
+				src: '**',
+				dest: 'public/libs'
+			}
+		},
 		jshint: {
 			options: {
 				curly: true,
@@ -62,7 +70,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task(s).
-	grunt.registerTask('default', ['jshint', 'uglify', 'less', 'watch']);
+	grunt.registerTask('default', ['copy', 'jshint', 'uglify', 'less', 'watch']);
 };
