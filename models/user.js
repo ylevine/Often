@@ -21,7 +21,6 @@ module.exports = function (db) {
 
 		// only hash the password if it has been modified (or is new)
 		if (!user.isModified('password')) return next();
-		var clearTextPw
 
 		// generate a salt
 		bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {

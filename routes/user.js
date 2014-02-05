@@ -16,7 +16,6 @@ exports.authenticate = function (req, res) {
 		if (user) {
 			req.session.regenerate(function () {
 				req.session.user = user;
-				req.session.save();
 				res.json({
 					isSuccessful: true
 				})
