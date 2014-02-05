@@ -7,34 +7,34 @@ var often = angular.module('often', [
 	'http-auth-interceptor'
 ]);
 
-often.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 	$routeProvider.
 		when('/', {
-			templateUrl: '/partials/all-notes.html',
+			templateUrl: '/app/notelist/noteList.html',
 			controller: 'noteListCtrl'
 		}).
 		when('/:username/:slug', {
-			templateUrl: '/partials/view-note.html',
+			templateUrl: '/app/noteview/noteView.html',
 			controller: 'noteViewCtrl'
 		}).
 		when('/search', {
-			templateUrl: '/partials/all-notes.html',
+			templateUrl: '/app/notelist/noteList.html',
 			controller: 'searchCtrl'
 		}).
 		when('/register', {
-			templateUrl: '/partials/register.html',
-			controller: 'registerCtrl'
+			templateUrl: '/app/userRegistration/userRegistration.html',
+			controller: 'userRegistrationCtrl'
 		}).
 		when('/create', {
-			templateUrl: '/partials/create-note.html',
-			controller: 'createNoteCtrl'
+			templateUrl: '/app/notecreation/noteCreation.html',
+			controller: 'noteCreationCtrl'
 		}).
 		when('/login', {
-			templateUrl: '/partials/login.html',
-			controller: 'loginCtrl'
+			templateUrl: '/app/userlogin/userLogin.html',
+			controller: 'userLoginCtrl'
 		}).
 		when('/:username', {
-			templateUrl: '/partials/all-notes.html',
+			templateUrl: '/app/userNoteList/userNoteList.html',
 			controller: 'userNoteListCtrl'
 		}).
 		otherwise({
@@ -42,8 +42,6 @@ often.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
 		});
 }
 ]);
-
-var oftenRepository = angular.module('oftenRepositoryModule', []);
 
 often.directive('onFinishRender', function ($timeout) {
 	return {
@@ -172,3 +170,5 @@ often.directive('searchinput', function ($location, $http) {
 		}
 	}
 });
+
+angular.module('oftenControllers', ['oftenServices', 'chieffancypants.loadingBar']);
