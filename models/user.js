@@ -1,42 +1,42 @@
-//var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var	SALT_WORK_FACTOR = 10;
+var SALT_WORK_FACTOR = 10;
 
 /**
  * User Model
  *
  * @param {Mongoose.Connection} db The database connection.
  */
-module.exports = function(db) {
+module.exports = function (db) {
 
 	var schema = new Schema({
-						   username: { type: String, required: true, index: { unique: true } },
-						   password: { type: String, required: true },
-						   email: {type: String, required: true}
-					   });
+		username: { type: String, required: true, index: { unique: true } },
+		password: { type: String, required: true },
+		email: {type: String, required: true}
+	});
 
 	schema.pre('save', function (next) {
+		var user = this;
+
 		// only hash the password if it has been modified (or is new)
-		if (!this.isModified('password')) return next();
+		if (!user.isModified('password')) return next();
+		var clearTextPw
 
-		return next();
-		/*
+		// generate a salt
+		bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+			if (err) return next(err);
 
-		 // generate a salt
-		 bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-		 if (err) return next(err);
+			// hash the password using our new salt
+			bcrypt.hash(user.password, salt, function (err, hash) {
+				if (err) return next(err);
 
-		 // hash the password using our new salt
-		 bcrypt.hash(user.password, salt, function (err, hash) {
-		 if (err) return next(err);
+				// override the cleartext password with the hashed one
+				user.password = hash;
+				next();
+			});
+		});
 
-		 // override the cleartext password with the hashed one
-		 user.password = hash;
-		 next();
-		 });
-		 });
-		 */
 	});
 
 	/**
@@ -47,15 +47,12 @@ module.exports = function(db) {
 	/**
 	 * Private functions.
 	 */
-	function _comparePassword(candidatePassword, cb) {
-		cb(null, true);
-		/*
-		 bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-		 if (err) return cb(err);
-		 cb(null, isMatch);
-		 });
-		 */
-	};
+	function _comparePassword(candidatePassword, userPassword, cb) {
+		bcrypt.compare(candidatePassword, userPassword, function (err, isMatch) {
+			if (err) return cb(err);
+			cb(null, isMatch);
+		});
+	}
 
 	/**
 	 * Creates a new user module.
@@ -67,22 +64,25 @@ module.exports = function(db) {
 			model.findOne({ username: username}, function (err, user) {
 				if (err) throw err;
 				if (user) {
-					_comparePassword(password, function (err, isMatch) {
+					_comparePassword(password, user.password, function (err, isMatch) {
 						if (err) throw err;
 						if (isMatch) {
 							return fn(null, user);
 						}
-						console.log('invalid password');
 						return fn(new Error("Invalid Password!"));
 					});
 				} else {
-					console.log('user not found');
 					fn(new Error("User Not Found"));
 				}
 			});
 		},
-		register: function (fn) {
-			model.save(function (err) {
+		register: function (username, password, email, fn) {
+			var user = new model();
+			user.username = username;
+			user.password = password;
+			user.email = email;
+
+			user.save(function (err) {
 				if (err) throw err;
 				fn(null);
 			});
