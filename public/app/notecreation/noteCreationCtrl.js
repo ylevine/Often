@@ -20,17 +20,19 @@ angular.module('oftenControllers')
 				isValid = false;
 			}
 
-			if ($('#select-language').val() == "") {
+			if ($('#select-language').val() === "") {
 				styleFailedInput($('#select-language'));
 				isValid = false;
 			}
 
-			if ($scope.editor.getValue().length == 0) {
+			if ($scope.editor.getValue().length === 0) {
 				styleFailedInputEditor($('#codesnippet-textarea'));
 				isValid = false;
 			}
 
-			if (!isValid) return false;
+			if (!isValid) {
+				return false;
+			}
 
 			code.codeSnippet = $scope.editor.getValue();
 			$scope.note.codeList.push(code);
@@ -49,15 +51,15 @@ angular.module('oftenControllers')
 					});
 					for (var i = 0; i < $scope.note.codeList.length; i++) {
 						for (var x = i; x < $scope.note.codeList.length; x++) {
-							if (tableOrder[i] == $scope.note.codeList[x].codeTitle) {
+							if (tableOrder[i] === $scope.note.codeList[x].codeTitle) {
 								$scope.note.codeList.move(i, x);
-								break
+								break;
 							}
 						}
 					}
 				}
 			});
-		}
+		};
 
 		$scope.updateNote = function (note) {
 			var isValid = true;
@@ -74,10 +76,12 @@ angular.module('oftenControllers')
 				isValid = false;
 			}
 
-			if (!isValid) return false;
+			if (!isValid) {
+				return false;
+			}
 
 			$http.post('/api/note/post', note).success(function (data) {
 				$location.path('/');
-			})
-		}
+			});
+		};
 	});

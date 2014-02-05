@@ -8,10 +8,12 @@ angular.module('oftenServices', [])
 
 					$http.get('/api/note/get').
 						success(function (data) {
-							if (successCallBack == undefined) return null;
+							if (successCallBack === undefined) {
+								return null;
+							}
 
 							successCallBack(data.allNotes);
 						});
 				}
-			}}
+			}};
 	});

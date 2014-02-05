@@ -5,5 +5,5 @@ angular.module('oftenControllers')
 		noteListSvc.getAllNotes(function (data) {
 			$scope.notes = data;
 			$scope.loading = false;
-		})
+		});
 	}]);

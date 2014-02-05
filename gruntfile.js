@@ -20,14 +20,14 @@ module.exports = function (grunt) {
 					jQuery: true
 				}
 			},
-			uses_defaults: ['public/javascripts/*.js'],
+			uses_defaults: ['public/javascripts/*.js', 'public/app/**/*.js'],
 			with_overrides: {
 				options: {
 					curly: false,
-					undef: true
+					undef: false
 				},
 				files: {
-					src: ['public/javascripts/*.js']
+					src: ['public/javascripts/*.js', 'public/app/**/*.js']
 				}
 			}
 		},
@@ -73,5 +73,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// Default task(s).
-	grunt.registerTask('default', ['copy', 'jshint', 'uglify', 'less', 'watch']);
+	grunt.registerTask('default', ['jshint', 'uglify', 'less', 'watch']);
 };

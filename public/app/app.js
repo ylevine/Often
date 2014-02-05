@@ -53,7 +53,7 @@ often.directive('onFinishRender', function ($timeout) {
 				});
 			}
 		}
-	}
+	};
 });
 
 often.directive('memberonly', function ($rootScope, $location, $http, cfpLoadingBar) {
@@ -72,7 +72,7 @@ often.directive('memberonly', function ($rootScope, $location, $http, cfpLoading
 			cfpLoadingBar.complete();
 			$location.path('/login');
 		});
-	}
+	};
 });
 
 often.directive('logoff', function ($rootScope, $location, $http) {
@@ -83,8 +83,8 @@ often.directive('logoff', function ($rootScope, $location, $http) {
 				$rootScope.currentUser = "";
 				$location.path("/");
 			});
-		})
-	}
+		});
+	};
 });
 
 often.directive('jadedit', function () {
@@ -106,7 +106,7 @@ often.directive('jadedit', function () {
 
 				scope.editor = editor;
 			});
-	}
+	};
 });
 
 often.directive('lang', function () {
@@ -114,9 +114,9 @@ often.directive('lang', function () {
 		element.on('change', function () {
 			console.log(scope.editor);
 			scope.editor.setOption('readOnly', false);
-			setMode(scope.editor, element.val())
-		})
-	}
+			setMode(scope.editor, element.val());
+		});
+	};
 });
 
 often.directive('taginput', function () {
@@ -129,7 +129,7 @@ often.directive('taginput', function () {
 				e.preventDefault();
 				scope.$apply();
 			}
-		})
+		});
 	};
 });
 
@@ -142,21 +142,21 @@ often.directive('searchinput', function ($location, $http) {
 			if (element[0].value.length > 2) {
 				typingTimer = setTimeout(search, typingInterval);
 			}
-		})
+		});
 
 		element.on('blur', function (e) {
 			element[0].value = "";
-		})
+		});
 
 		element.on('keydown', function () {
 			clearInterval(typingTimer);
-		})
+		});
 
 		function search() {
 			scope.notes = [];
 			scope.loading = true;
 
-			if ($location.$$url.indexOf('search') == -1) {
+			if ($location.$$url.indexOf('search') === -1) {
 				$location.path('/search');
 				scope.$apply();
 			}
@@ -168,7 +168,7 @@ often.directive('searchinput', function ($location, $http) {
 					scope.loading = false;
 				});
 		}
-	}
+	};
 });
 
 angular.module('oftenControllers', ['oftenServices', 'chieffancypants.loadingBar']);

@@ -27,8 +27,8 @@ var highlightCode = function () {
 		});
 
 		setMode(editor, $(this).attr('data-parser'));
-	})
-}
+	});
+};
 
 function setMode(editor, parser) {
 	$.ajaxSetup({cache: true});
@@ -36,7 +36,7 @@ function setMode(editor, parser) {
 		editor.setOption('mode', parser);
 	});
 	$.ajaxSetup({cache: false});
-};
+}
 
 Array.prototype.move = function (old_index, new_index) {
 	if (new_index >= this.length) {

@@ -17,7 +17,7 @@ angular.module('oftenControllers')
 				isValid = false;
 			}
 
-			if ($('#password').val() != $('#confirm').val()) {
+			if ($('#password').val() !== $('#confirm').val()) {
 				styleFailedInput($('#password'));
 				styleFailedInput($('#confirm'));
 				isValid = false;
@@ -33,14 +33,16 @@ angular.module('oftenControllers')
 				}
 			}
 
-			if (!isValid) return false;
+			if (!isValid) {
+				return false;
+			}
 
 			$http.post('/user/register', user).success(function (data) {
 				if (data.isSuccessful) {
 					$rootScope.logged = true;
 					$rootScope.currentUser = user.username;
-					$location.path($rootScope.redirectTo == undefined ? '/' + user.username : $rootScope.redirectTo);
+					$location.path($rootScope.redirectTo === undefined ? '/' + user.username : $rootScope.redirectTo);
 				}
 			});
-		}
+		};
 	});

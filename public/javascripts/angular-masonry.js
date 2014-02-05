@@ -41,7 +41,7 @@
 						$('.masonry-container').show();
 						highlightCode();
 					}
-				};
+				}
 
 				this.appendBrick = function appendBrick(element, id) {
 					if (destroyed) {

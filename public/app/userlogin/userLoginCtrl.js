@@ -19,7 +19,9 @@ angular.module('oftenControllers')
 				isValid = false;
 			}
 
-			if (!isValid) return false;
+			if (!isValid) {
+				return false;
+			}
 
 			$scope.user = angular.copy(user);
 			$http.post('/user/authenticate', user).
@@ -30,7 +32,7 @@ angular.module('oftenControllers')
 
 						$rootScope.logged = true;
 						$rootScope.currentUser = user.name;
-						$location.path($rootScope.redirectTo == undefined ? '/' + user.name : $rootScope.redirectTo);
+						$location.path($rootScope.redirectTo === undefined ? '/' + user.name : $rootScope.redirectTo);
 					} else {
 						styleFailedInput($('#username'));
 						styleFailedInput($('#password'));
