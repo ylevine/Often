@@ -4,18 +4,15 @@ Fork the project to your own repo before making any changes. Use git to clone th
 
 This project is dependent upon the following development tools
 
+- NodeJS
 - Python 2.7.x
 - bcrypt
 - MongoDB
 - Bower
 
-#Installing Python
-
 Often uses `bcrypt` package that depends upon Python to be installed to use the it. Do not install the `v3.x.x` version of Python. For this install guide I used Python 2.7.6 32-bit for Windows.
 
 http://www.python.org/download/
-
-#Installing bcrypt
 
 Bcrypt has specific dependencies related to OpenSSL. For the latest guide on building bcrypt visit their GitHub page.
 
@@ -25,15 +22,11 @@ Bcrypt is challenging to build from source for Windows users. You will need the 
 
 There is no build instructions at this stage. Continue with the next tools.
 
-#Installing MongoDB
-
 Often requires a connect to a MongoDB server as the database engine. Installing and running MongoDB is straight forward.
 
 http://www.mongodb.org
 
 After install MongoDB it will have to be running for the server to connect to the DB.
-
-# Installing Bower
 
 Bower is a packaging manager for files used by the web browser. It can be installed easily by using `npm install -g bower`.
 
