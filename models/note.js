@@ -5,34 +5,34 @@ var ObjectId = ObjectId = mongoose.Types.ObjectId;
 /**
  * @param {Mongoose.Connection} db The database connection.
  */
-module.exports = function(db) {
+module.exports = function (db) {
 
 	var schema = new Schema({
-						  noteTitle: String,
-						  noteSlug: String,
-						  noteDesc: String,
-						  noteDate: Date,
-						  noteOwner: String,
-						  noteTags: [
-							  {
-								  tagName: String
-							  }
-						  ],
-						  codeList: [
-							  {
-								  codeTitle: String,
-								  codeDesc: String,
-								  codeLang: String,
-								  codeSnippet: String,
-								  codeParser: String
-							  }
-						  ],
-						  Stars: [
-							  {
-								  starOwner: String
-							  }
-						  ]
-					  });
+		noteTitle: String,
+		noteSlug: String,
+		noteDesc: String,
+		noteDate: Date,
+		noteOwner: String,
+		noteTags: [
+			{
+				tagName: String
+			}
+		],
+		codeList: [
+			{
+				codeTitle: String,
+				codeDesc: String,
+				codeLang: String,
+				codeSnippet: String,
+				codeParser: String
+			}
+		],
+		Stars: [
+			{
+				starOwner: String
+			}
+		]
+	});
 
 	/**
 	 * @type {Mongoose.Model}
@@ -53,10 +53,18 @@ module.exports = function(db) {
 			});
 		},
 		saveNote: function saveFunc(newNote, fn) {
-			newNote.save(function (err) {
+			var note = new model();
+			note.noteTitle = newNote.noteTitle;
+			note.noteSlug = newNote.noteSlug;
+			note.noteDate = new Date();
+			note.noteOwner = newNote.noteOwner;
+			note.codeList = newNote.codeList;
+			note.noteTags = newNote.noteTags;
+
+			note.save(function (err) {
 				if (err)
 					throw err;
-				fn(newNote._id);
+				fn(note._id);
 			});
 		},
 		getAll: function getAll(fn) {
@@ -84,10 +92,10 @@ module.exports = function(db) {
 
 				if (note != null && note.comments != null) {
 					note.comments.push({
-										   comment: contents,
-										   commentDate: new Date(),
-										   commentOwner: username
-									   });
+						comment: contents,
+						commentDate: new Date(),
+						commentOwner: username
+					});
 
 					note.save(function (err) {
 						if (err) throw err;

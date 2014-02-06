@@ -73,8 +73,7 @@ exports.saveNote = function (req, res) {
 		res.end();
 	}
 
-	// TODO: This is internal schema object. Shouldn't be done here, should be in NoteModel
-	var newNote = new Note();
+	var newNote = {};
 	newNote.noteTitle = req.body.noteTitle;
 	newNote.noteSlug = newNote.noteTitle.trim().replace(/ +/g, '-').toLowerCase();
 	newNote.noteDate = new Date();
