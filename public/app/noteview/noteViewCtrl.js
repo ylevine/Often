@@ -6,8 +6,4 @@ angular.module('oftenControllers')
 			$scope.note = data.note;
 			$scope.loading = false;
 		});
-
-		$scope.$on('renderComplete', function (ngRepeatFinishedEvent) {
-			highlightCode();
-		});
 	});

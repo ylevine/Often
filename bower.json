@@ -22,7 +22,6 @@
         "angular-masonry": "~0.7.0",
         "angular-mocks": "~1.2.10",
         "angular-moment": "~0.6.0",
-        "imagesloaded": "~3.0.4",
         "jquery": "~1.10.2",
         "jquery-bridget": "~1.0.1",
         "masonry": "~3.1.2",
@@ -30,9 +29,12 @@
         "angular-http-auth": "~1.2.1",
         "codemirror": "~3.21.0",
         "bootstrap": "~3.1.0",
-        "angular-route": "~1.2.10"
+        "angular-route": "~1.2.10",
+        "angular-ui-codemirror": "#bower",
+        "angular-highlightjs": "~0.2.1"
     },
     "resolutions": {
-        "jquery": "~1.10.2"
+        "jquery": "~1.10.2",
+        "codemirror": "~3.21.0"
     }
 }
