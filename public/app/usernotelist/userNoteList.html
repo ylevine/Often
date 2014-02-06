@@ -13,8 +13,8 @@
 			<p class="desc" ng-bind="code.codeDesc"></p>
 			<figure>
 				<figcaption ng-bind="code.codeTitle"></figcaption>
-				<textarea class="code-snippet" ng-bind="code.codeSnippet"
-				          data-parser="{{code.codeParser}}"></textarea>
+                <div hljs language="{{ code.codeLang }}" source="code.codeSnippet">
+                </div>
 			</figure>
 		</div>
 		<img class="star" src="/images/unstar.png" />

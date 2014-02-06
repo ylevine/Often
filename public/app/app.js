@@ -23,7 +23,7 @@ often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 			controller: 'searchCtrl'
 		}).
 		when('/register', {
-			templateUrl: '/app/userRegistration/userRegistration.html',
+			templateUrl: '/app/userregistration/userRegistration.html',
 			controller: 'userRegistrationCtrl'
 		}).
 		when('/create', {
@@ -35,7 +35,7 @@ often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 			controller: 'userLoginCtrl'
 		}).
 		when('/:username', {
-			templateUrl: '/app/userNoteList/userNoteList.html',
+			templateUrl: '/app/usernotelist/userNoteList.html',
 			controller: 'userNoteListCtrl'
 		}).
 		otherwise({
