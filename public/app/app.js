@@ -1,5 +1,6 @@
 var often = angular.module('often', [
 	'ngRoute',
+    'hljs',
 	'wu.masonry',
 	'chieffancypants.loadingBar',
 	'angularMoment',
