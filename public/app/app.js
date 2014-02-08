@@ -1,3 +1,5 @@
+angular.module('often.directives', []);
+
 var often = angular.module('often', [
 	'ngRoute',
     'hljs',
@@ -5,6 +7,7 @@ var often = angular.module('often', [
 	'chieffancypants.loadingBar',
 	'angularMoment',
 	'oftenControllers',
+    'often.directives',
 	'http-auth-interceptor'
 ]);
 

@@ -27,11 +27,15 @@ module.exports = function (db) {
 				codeParser: String
 			}
 		],
-		Stars: [
+		stars: [
 			{
-				starOwner: String
+				starredBy: String
 			}
-		]
+		],
+        starredByLoggedIn: {
+            type: Boolean,
+            default: false
+        }
 	});
 
 	/**
@@ -110,21 +114,21 @@ module.exports = function (db) {
 			model.findOne({_id: ObjectId(noteId)}).exec(function (err, note) {
 				if (err) throw err;
 
-				if (note != null && note.Stars != null) {
+				if (note != null && note.stars != null) {
 					var starred = false;
 					var index = -1;
-					for (var star in note.Stars) {
-						if (note.Stars[star].starOwner == userName) {
+					for (var star in note.stars) {
+						if (note.stars[star].starredBy == userName) {
 							index = star;
 							break;
 						}
 					}
 
 					if (index == -1) {
-						note.Stars.push({starOwner: userName});
+						note.stars.push({starredBy: userName});
 						starred = true;
 					} else {
-						note.Stars.splice(index);
+						note.stars.splice(index);
 					}
 
 					note.save(function (err) {

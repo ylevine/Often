@@ -1,7 +1,25 @@
 var models = projRequire('/models/index');
 
+function isNoteStarred(note, req) {
+    for (var starIndex = 0; starIndex < note.stars.length; starIndex++) {
+        var star = note.stars[starIndex];
+        console.log(star);
+        if (star.starredBy === req.session.user.username) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 exports.getAll = function (req, res) {
 	models.Note.getAll(function (notes) {
+        if (req.session.user) {
+            for (var noteIndex in notes) {
+                notes[noteIndex].starredByLoggedIn = isNoteStarred(notes[noteIndex], req);
+            }
+        }
+
 		res.json({
 			allNotes: notes
 		});
@@ -61,6 +79,12 @@ exports.getSearchedNotes = function (req, res) {
 
 exports.getUserNotes = function (req, res) {
 	models.Note.findUserNotes(req.params.username, function (notes) {
+        if (req.session.user) {
+            for (var noteIndex = 0; noteIndex < notes.length; noteIndex++) {
+                notes[noteIndex].starredByLoggedIn = isNoteStarred(notes[noteIndex], req);
+            }
+        }
+
 		res.json({
 			allNotes: notes
 		})
@@ -106,15 +130,26 @@ exports.postComment = function (req, res) {
 }
 
 exports.star = function (req, res) {
+    if (!req.session.user) {
+        res.status(403);
+        res.end();
+        return false;
+    }
 	models.Note.star(req.params.noteId, req.session.user.username, function (starred) {
 		res.json({
 			star: starred
 		});
+        return true;
 	});
+    return false;
 }
 
 exports.getNote = function (req, res) {
 	models.Note.findNote(req.params.username.toLowerCase(), req.params.slug.toLowerCase(), function (note) {
+        if (req.session.user) {
+            note.starredByLoggedIn = isNoteStarred(note, req);
+        }
+
 		res.json({
 			note: note
 		});
