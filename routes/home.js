@@ -1,3 +1,5 @@
-exports.home = function(req, res){
+exports.home = function (req, res){
+    'use strict';
+
 	res.render('index', { title: 'Express' });
 };

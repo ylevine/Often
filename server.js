@@ -1,8 +1,9 @@
 /**
  * A hack to use absolute paths for require. This might break testing?
  */
-var projectDir = __dirname;
-GLOBAL.projRequire = function( path ) {
+GLOBAL.projRequire = function (path) {
+    'use strict';
+
 	return require(__dirname + path);
 };
 
@@ -36,8 +37,8 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+if ('development' === app.get('env')) {
+    app.use(express.errorHandler());
 }
 
 app.get('/', routes.Home.home);
@@ -53,6 +54,8 @@ app.post('/user/authenticate', routes.User.authenticate);
 app.post('/user/logoff', routes.User.logoff);
 app.post('/user/register', routes.User.register);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    'use strict';
+
+    console.log('Express server listening on port ' + app.get('port'));
 });
