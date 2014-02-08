@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
-	// Project configuration.
+	'use strict';
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		copy: {
@@ -12,24 +13,30 @@ module.exports = function (grunt) {
 		},
 		jshint: {
 			options: {
-				curly: true,
-				eqeqeq: true,
-				eqnull: true,
-				browser: true,
-				globals: {
-					jQuery: true
-				}
+				jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
 			},
-			uses_defaults: ['public/javascripts/*.js', 'public/app/**/*.js'],
-			with_overrides: {
-				options: {
-					curly: false,
-					undef: false
-				},
-				files: {
-					src: ['public/javascripts/*.js', 'public/app/**/*.js']
-				}
-			}
+            all: [
+                'gruntfile.js',
+                'models/*.js',
+                'routes/*.js',
+                'test/*.js',
+                'server.js',
+                'public/app/{,*/}.js',
+                'public/javascripts/{,*/}.js'
+            ],
+            frontend: [
+                'gruntfile.js',
+                'public/app/{,*/}.js',
+                'public/javascripts/{,*/}.js'
+            ],
+            backend: [
+                'gruntfile.js',
+                'models/*.js',
+                'routes/*.js',
+                'test/*.js',
+                'server.js'
+            ]
 		},
 		uglify: {
 			options: {
