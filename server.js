@@ -46,6 +46,7 @@ app.get('/api/note/get/:username', routes.Note.getUserNotes);
 app.get('/api/note/get/:username/:slug', routes.Note.getNote);
 app.post('/api/note/post', routes.Note.saveNote);
 app.get('/api/note/search', routes.Note.getSearchedNotes);
+app.get('/api/note/:noteId/star', routes.Note.star);
 
 app.get('/user/checkAuth', routes.User.isAuthenticated);
 app.post('/user/authenticate', routes.User.authenticate);
