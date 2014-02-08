@@ -37,6 +37,6 @@ angular.module('often.directives')
                     });
                 };
             },
-            templateUrl: 'app/directives/starDirective/star.html'
+            templateUrl: 'app/star/star.html'
         }
     });

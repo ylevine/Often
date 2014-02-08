@@ -1,4 +1,4 @@
-angular.module('often.directives')
+angular.module('oftenServices')
     .factory('StarService', function($http) {
         return {
             toggleStar: function(note, successFn) {

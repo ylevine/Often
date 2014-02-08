@@ -1,5 +1,3 @@
-angular.module('often.directives', []);
-
 var often = angular.module('often', [
 	'ngRoute',
     'hljs',
@@ -7,6 +5,7 @@ var often = angular.module('often', [
 	'chieffancypants.loadingBar',
 	'angularMoment',
 	'oftenControllers',
+	'oftenServices',
     'often.directives',
 	'http-auth-interceptor'
 ]);
@@ -75,18 +74,6 @@ often.directive('memberonly', function ($rootScope, $location, $http, cfpLoading
 			$rootScope.logged = false;
 			cfpLoadingBar.complete();
 			$location.path('/login');
-		});
-	};
-});
-
-often.directive('logoff', function ($rootScope, $location, $http) {
-	return function (scope, element, attr) {
-		element.on('click', function () {
-			$http.post('/user/logoff').success(function () {
-				$rootScope.logged = false;
-				$rootScope.currentUser = "";
-				$location.path("/");
-			});
 		});
 	};
 });
@@ -176,3 +163,5 @@ often.directive('searchinput', function ($location, $http) {
 });
 
 angular.module('oftenControllers', ['oftenServices', 'chieffancypants.loadingBar']);
+angular.module('oftenServices', []);
+angular.module('often.directives', ['oftenServices']);
