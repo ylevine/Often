@@ -5,7 +5,7 @@
     "authors": [
         "Won Song <prideofjc@gmail.com>"
     ],
-    "main": "app.js",
+    "main": "server.js",
     "license": "MIT",
     "private": true,
     "ignore": [
