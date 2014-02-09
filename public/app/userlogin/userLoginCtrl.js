@@ -1,5 +1,5 @@
 angular.module('oftenControllers')
-	.controller('userLoginCtrl', function ($scope, $http, cfpLoadingBar, $location, $rootScope) {
+	.controller('userLoginCtrl', function ($scope, cfpLoadingBar, $location, $rootScope, userLoginSvc) {
 		$scope.loading = true;
 
 		$scope.user = {};
@@ -24,20 +24,19 @@ angular.module('oftenControllers')
 			}
 
 			$scope.user = angular.copy(user);
-			$http.post('/user/authenticate', user).
-				success(function (data) {
-					if (data.isSuccessful) {
-						styleSuccessInput($('#username'));
-						styleSuccessInput($('#password'));
+			userLoginSvc.login(user, function(data) {
+				if (data.isSuccessful) {
+					styleSuccessInput($('#username'));
+					styleSuccessInput($('#password'));
 
-						$rootScope.logged = true;
-						$rootScope.currentUser = user.name;
-						$location.path($rootScope.redirectTo === undefined ? '/' + user.name : $rootScope.redirectTo);
-					} else {
-						styleFailedInput($('#username'));
-						styleFailedInput($('#password'));
-					}
-				});
+					$rootScope.logged = true;
+					$rootScope.currentUser = user.name;
+					$location.path($rootScope.redirectTo === undefined ? '/' + user.name : $rootScope.redirectTo);
+				} else {
+					styleFailedInput($('#username'));
+					styleFailedInput($('#password'));
+				}
+			})
 		};
 
 		$rootScope.$on('event:auth-loginRequired', function () {

@@ -1,4 +1,4 @@
-angular.module('oftenServices', [])
+angular.module('oftenServices')
 	.factory('noteListSvc', function ($http) {
 		return {
 			getAllNotes: function (successCallBack) {
