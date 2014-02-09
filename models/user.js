@@ -9,6 +9,7 @@ var SALT_WORK_FACTOR = 10;
  * @param {Mongoose.Connection} db The database connection.
  */
 module.exports = function (db) {
+    'use strict';
 
 	var schema = new Schema({
 		username: { type: String, required: true, index: { unique: true } },
@@ -20,37 +21,54 @@ module.exports = function (db) {
 		var user = this;
 
 		// only hash the password if it has been modified (or is new)
-		if (!user.isModified('password')) return next();
+		if (!user.isModified('password')) {
+            return next();
+        }
 
 		// generate a salt
 		bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-			if (err) return next(err);
+			if (err) {
+                return next(err);
+            }
 
 			// hash the password using our new salt
 			bcrypt.hash(user.password, salt, function (err, hash) {
-				if (err) return next(err);
+				if (err) {
+                    return next(err);
+                }
 
 				// override the cleartext password with the hashed one
 				user.password = hash;
 				next();
+
+                return true;
 			});
+
+            return true;
 		});
 
+        return true;
 	});
 
 	/**
 	 * @type {Mongoose.Model}
 	 */
-	var model = db.model('Users', schema);
+	var Model = db.model('Users', schema);
 
 	/**
 	 * Private functions.
 	 */
 	function _comparePassword(candidatePassword, userPassword, cb) {
 		bcrypt.compare(candidatePassword, userPassword, function (err, isMatch) {
-			if (err) return cb(err);
+			if (err) {
+                return cb(err);
+            }
+
 			cb(null, isMatch);
+            return true;
 		});
+
+        return true;
 	}
 
 	/**
@@ -60,29 +78,38 @@ module.exports = function (db) {
 	 */
 	return {
 		authenticate: function (username, password, fn) {
-			model.findOne({ username: username}, function (err, user) {
-				if (err) throw err;
+			Model.findOne({ username: username}, function (err, user) {
+				if (err) {
+                    throw err;
+                }
+
 				if (user) {
 					_comparePassword(password, user.password, function (err, isMatch) {
-						if (err) throw err;
+						if (err) {
+                            throw err;
+                        }
 						if (isMatch) {
 							return fn(null, user);
 						}
-						return fn(new Error("Invalid Password!"));
+						return fn(new Error('Invalid Password!'));
 					});
 				} else {
-					fn(new Error("User Not Found"));
+					fn(new Error('User Not Found'));
 				}
 			});
 		},
+
 		register: function (username, password, email, fn) {
-			var user = new model();
+			var user = new Model();
 			user.username = username;
 			user.password = password;
 			user.email = email;
 
 			user.save(function (err) {
-				if (err) throw err;
+				if (err) {
+                    throw err;
+                }
+
 				fn(null);
 			});
 		}

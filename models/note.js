@@ -1,11 +1,12 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema;
-var ObjectId = ObjectId = mongoose.Types.ObjectId;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    ObjectId = mongoose.Types.ObjectId;
 
 /**
  * @param {Mongoose.Connection} db The database connection.
  */
 module.exports = function (db) {
+    'use strict';
 
 	var schema = new Schema({
 		noteTitle: String,
@@ -41,23 +42,29 @@ module.exports = function (db) {
 	/**
 	 * @type {Mongoose.Model}
 	 */
-	var model = db.model('Notes', schema);
+	var Model = db.model('Notes', schema);
 
 	return {
 		findUserNotes: function getUserNotes(username, fn) {
-			model.find({noteOwner: username}).exec(function (err, notes) {
-				if (err) throw err;
+			Model.find({noteOwner: username}).exec(function (err, notes) {
+				if (err) {
+                    throw err;
+                }
+
 				fn(notes);
 			});
 		},
 		findNote: function getNote(username, slug, fn) {
-			model.findOne({noteOwner: username, noteSlug: slug}).exec(function (err, note) {
-				if (err) throw err;
+			Model.findOne({noteOwner: username, noteSlug: slug}).exec(function (err, note) {
+				if (err) {
+                    throw err;
+                }
+
 				fn(note);
 			});
 		},
 		saveNote: function saveFunc(newNote, fn) {
-			var note = new model();
+			var note = new Model();
 			note.noteTitle = newNote.noteTitle;
 			note.noteSlug = newNote.noteSlug;
 			note.noteDate = new Date();
@@ -66,22 +73,29 @@ module.exports = function (db) {
 			note.noteTags = newNote.noteTags;
 
 			note.save(function (err) {
-				if (err)
-					throw err;
+				if (err) {
+                    throw err;
+                }
+
 				fn(note._id);
 			});
 		},
 		getAll: function getAll(fn) {
-			model.find({}).exec(function (err, notes) {
-				if (err) throw err;
+			Model.find({}).exec(function (err, notes) {
+				if (err) {
+                    throw err;
+                }
+
 				fn(notes);
 			});
 		},
 		findComments: function (noteId, fn) {
-			model.findOne({_id: ObjectId(noteId)}).exec(function (err, note) {
-				if (err) throw err;
+			Model.findOne({_id: noteId}).exec(function (err, note) {
+				if (err) {
+                    throw err;
+                }
 
-				if (note != null && note.comments != null) {
+				if (note !== null && note.comments !== null) {
 
 					fn(note.comments);
 				} else {
@@ -91,10 +105,12 @@ module.exports = function (db) {
 			});
 		},
 		postComment: function (noteId, contents, username, fn) {
-			model.findOne({_id: ObjectId(noteId)}).exec(function (err, note) {
-				if (err) throw err;
+			Model.findOne({_id: noteId}).exec(function (err, note) {
+				if (err) {
+                    throw err;
+                }
 
-				if (note != null && note.comments != null) {
+				if (note !== null && note.comments !== null) {
 					note.comments.push({
 						comment: contents,
 						commentDate: new Date(),
@@ -102,8 +118,9 @@ module.exports = function (db) {
 					});
 
 					note.save(function (err) {
-						if (err) throw err;
-
+						if (err) {
+                            throw err;
+                        }
 
 						fn(true);
 					});
@@ -111,20 +128,24 @@ module.exports = function (db) {
 			});
 		},
 		star: function (noteId, userName, fn) {
-			model.findOne({_id: ObjectId(noteId)}).exec(function (err, note) {
-				if (err) throw err;
+			Model.findOne({_id: noteId}).exec(function (err, note) {
+				if (err) {
+                    throw err;
+                }
 
-				if (note != null && note.stars != null) {
-					var starred = false;
-					var index = -1;
+				if (note !== null && note.stars !== null) {
+					var starred = false,
+                        index = -1;
+
 					for (var star in note.stars) {
-						if (note.stars[star].starredBy == userName) {
+						if (note.stars[star].starredBy === userName) {
 							index = star;
+
 							break;
 						}
 					}
 
-					if (index == -1) {
+					if (index === -1) {
 						note.stars.push({starredBy: userName});
 						starred = true;
 					} else {
@@ -132,11 +153,12 @@ module.exports = function (db) {
 					}
 
 					note.save(function (err) {
-						if (err) throw err;
-
+						if (err) {
+                            throw err;
+                        }
 
 						fn(starred);
-					})
+					});
 				} else {
 					fn(null);
 				}
