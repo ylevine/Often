@@ -16,6 +16,8 @@ module.exports = function (config) {
 		files: [
 			'public/bower_components/angular/angular.js',
 			'public/bower_components/angular-mocks/angular-mocks.js',
+			// OftenControllers dependencies
+			'public/bower_components/angular-loading-bar/build/loading-bar.min.js',
 			'public/app/app.js',
 			'public/app/**/**.js',
 			'test/unit/public/app/**/*Spec.js'

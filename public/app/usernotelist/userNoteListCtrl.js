@@ -1,21 +1,20 @@
 angular.module('oftenControllers')
-	.controller('userNoteListCtrl', function ($scope, $http, $routeParams, $rootScope, $location, cfpLoadingBar) {
-		$scope.loading = true;
+	.controller('userNoteListCtrl', [ '$scope', '$routeParams', '$rootScope', '$location', 'cfpLoadingBar', 'checkAuthSvc', 'userNoteListSvc',
+		function ($scope, $routeParams, $rootScope, $location, cfpLoadingBar, checkAuthSvc, userNoteListSvc) {
+			$scope.loading = true;
 
-		$http.get('/user/checkAuth').
-			success(function (data) {
+			checkAuthSvc.checkAuth(function () {
 				$rootScope.logged = true;
 
-				$http.get('/api/note/get/' + $routeParams.username).
-					success(function (data) {
-						$scope.notes = data.allNotes;
-						$scope.loading = false;
-					});
+				userNoteListSvc.getUserNoteList($routeParams.username, function (allNotes) {
+					$scope.notes = allNotes;
+					$scope.loading = false;
+				});
 			});
 
-		$rootScope.$on('event:auth-loginRequired', function () {
-			$rootScope.logged = false;
-			cfpLoadingBar.complete();
-			$location.path('/login');
-		});
-	});
+			$rootScope.$on('event:auth-loginRequired', function () {
+				$rootScope.logged = false;
+				cfpLoadingBar.complete();
+				$location.path('/login');
+			});
+		}]);

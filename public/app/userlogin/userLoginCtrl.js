@@ -1,31 +1,31 @@
 angular.module('oftenControllers')
-	.controller('userLoginCtrl', function ($scope, $http, cfpLoadingBar, $location, $rootScope) {
-		$scope.loading = true;
+	.controller('userLoginCtrl', ['$scope', 'cfpLoadingBar', '$location', '$rootScope', 'userLoginSvc',
+		function ($scope, cfpLoadingBar, $location, $rootScope, userLoginSvc) {
+			$scope.loading = true;
 
-		$scope.user = {};
+			$scope.user = {};
 
-		$scope.update = function (user) {
-			var isValid = true;
-			removeInputFeedback($('#username'));
-			removeInputFeedback($('#password'));
+			$scope.update = function (user) {
+				var isValid = true;
+				removeInputFeedback($('#username'));
+				removeInputFeedback($('#password'));
 
-			if ($('#username').val().length < 5) {
-				styleFailedInput($('#username'));
-				isValid = false;
-			}
+				if ($('#username').val().length < 5) {
+					styleFailedInput($('#username'));
+					isValid = false;
+				}
 
-			if ($('#password').val().length < 5) {
-				styleFailedInput($('#password'));
-				isValid = false;
-			}
+				if ($('#password').val().length < 5) {
+					styleFailedInput($('#password'));
+					isValid = false;
+				}
 
-			if (!isValid) {
-				return false;
-			}
+				if (!isValid) {
+					return false;
+				}
 
-			$scope.user = angular.copy(user);
-			$http.post('/user/authenticate', user).
-				success(function (data) {
+				$scope.user = angular.copy(user);
+				userLoginSvc.login(user, function (data) {
 					if (data.isSuccessful) {
 						styleSuccessInput($('#username'));
 						styleSuccessInput($('#password'));
@@ -37,13 +37,13 @@ angular.module('oftenControllers')
 						styleFailedInput($('#username'));
 						styleFailedInput($('#password'));
 					}
-				});
-		};
+				})
+			};
 
-		$rootScope.$on('event:auth-loginRequired', function () {
-			cfpLoadingBar.complete();
-			$rootScope.logged = false;
-			$rootScope.currentUser = "";
-			$location.path('/login');
-		});
-	});
+			$rootScope.$on('event:auth-loginRequired', function () {
+				cfpLoadingBar.complete();
+				$rootScope.logged = false;
+				$rootScope.currentUser = "";
+				$location.path('/login');
+			});
+		}]);

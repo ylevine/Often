@@ -1,5 +1,5 @@
 angular.module('oftenServices')
-	.factory('noteViewSvc', function ($http) {
+	.factory('noteViewSvc', ['$http', function ($http) {
 		return {
 			getNote: function (username, noteSlug, successCallBack) {
 				if (!username || !noteSlug || !successCallBack) {
@@ -13,4 +13,4 @@ angular.module('oftenServices')
 				}
 			}
 		};
-	});
+	}]);

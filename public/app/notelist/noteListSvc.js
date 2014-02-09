@@ -1,5 +1,5 @@
-angular.module('oftenServices', [])
-	.factory('noteListSvc', function ($http) {
+angular.module('oftenServices')
+	.factory('noteListSvc', ['$http', function ($http) {
 		return {
 			getAllNotes: function (successCallBack) {
 				if (!successCallBack) {
@@ -16,4 +16,4 @@ angular.module('oftenServices', [])
 						});
 				}
 			}};
-	});
+	}]);
