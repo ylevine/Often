@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
 	<link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css"/>
 	<link rel="stylesheet" href="bower_components/codemirror/theme/ambiance.css"/>
-    <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css" />
+	<link rel="stylesheet" href="bower_components/highlightjs/styles/github.css"/>
 </head>
 <body>
 <div class="container-fluid">
@@ -39,16 +39,23 @@
 					</form>
 				</li>
 				<li>
-					<div><button class="btn btn-primary navbar-btn member-btn" memberonly="/create">Create Note</button></div>
+					<div>
+						<button class="btn btn-primary navbar-btn member-btn" memberonly="/create">Create Note</button>
+					</div>
 				</li>
 				<li>
 					<div><a class="btn btn-primary navbar-btn" href="/#/login" ng-show="!logged">Login</a></div>
 				</li>
 				<li>
-					<div><a class="btn btn-primary navbar-btn" href="/#/{{currentUser}}" ng-show="logged">My Notes</a></div>
+					<div><a class="btn btn-primary navbar-btn" href="/#/{{currentUser}}" ng-show="logged">My Notes</a>
+					</div>
 				</li>
 				<li>
-					<div><button class="btn btn-primary navbar-btn member-btn" href="/#/logoff" ng-show="logged" logoff>Log Off</button></div>
+					<div>
+						<button class="btn btn-primary navbar-btn member-btn" href="/#/logoff" ng-show="logged" logoff>
+							Log Off
+						</button>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -72,7 +79,6 @@
 	<!-- FOOTER ENDS -->
 	<!----------------->
 
-	</div>
 </div>
 
 <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
@@ -103,32 +109,17 @@
 <script type="text/javascript" src="bower_components/angular-highlightjs/angular-highlightjs.js"></script>
 <script type="text/javascript" src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/checkauth/checkAuthSvc.js"></script>
-<!-- Note List -->
-<script type="text/javascript" src="app/notelist/noteListSvc.js"></script>
-<script type="text/javascript" src="app/notelist/noteListCtrl.js"></script>
-<!-- Note View -->
-<script type="text/javascript" src="app/noteview/noteViewCtrl.js"></script>
-<script type="text/javascript" src="app/noteview/noteViewSvc.js"></script>
-<!-- Note Creation -->
-<script type="text/javascript" src="app/notecreation/noteCreationCtrl.js"></script>
-<script type="text/javascript" src="app/notecreation/noteCreationSvc.js"></script>
-<!-- User Login -->
-<script type="text/javascript" src="app/userlogin/userLoginSvc.js"></script>
-<script type="text/javascript" src="app/userlogin/userLoginCtrl.js"></script>
-<!-- User Logoff -->
-<script type="text/javascript" src="app/userlogoff/userLogOffCtrl.js"></script>
-<script type="text/javascript" src="app/userlogoff/userLogOffSvc.js"></script>
-<script type="text/javascript" src="app/userlogoff/userLogOffDrtv.js"></script>
-<!-- User Registration -->
-<script type="text/javascript" src="app/userregistration/userRegistrationCtrl.js"></script>
-<script type="text/javascript" src="app/userregistration/userRegistrationSvc.js"></script>
-<!-- User Note list -->
-<script type="text/javascript" src="app/usernotelist/userNoteListCtrl.js"></script>
-<script type="text/javascript" src="app/usernotelist/userNoteListSvc.js"></script>
-
-<script type="text/javascript" src="app/star/starSvc.js"></script>
-<script type="text/javascript" src="app/star/starDrtv.js"></script>
+<script type="text/javascript" src="app/note/controllers/noteListCtrl.js"></script>
+<script type="text/javascript" src="app/note/controllers/noteViewCtrl.js"></script>
+<script type="text/javascript" src="app/note/controllers/noteCreationCtrl.js"></script>
+<script type="text/javascript" src="app/user/controllers/userLoginCtrl.js"></script>
+<script type="text/javascript" src="app/user/controllers/userLogOffCtrl.js"></script>
+<script type="text/javascript" src="app/user/controllers/userRegistrationCtrl.js"></script>
+<script type="text/javascript" src="app/user/controllers/userNoteListCtrl.js"></script>
+<script type="text/javascript" src="app/user/directives/userLogOffDrtv.js"></script>
+<script type="text/javascript" src="app/note/directives/starDrtv.js"></script>
+<script type="text/javascript" src="app/note/services/noteSvc.js"></script>
+<script type="text/javascript" src="app/user/services/userSvc.js"></script>
 
 <script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
 </body>

@@ -1,50 +1,49 @@
 var often = angular.module('often', [
 	'ngRoute',
-    'hljs',
+	'hljs',
 	'wu.masonry',
 	'chieffancypants.loadingBar',
 	'angularMoment',
 	'oftenControllers',
 	'oftenServices',
-    'often.directives',
+	'often.directives',
 	'http-auth-interceptor'
 ]);
 
 often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 	$routeProvider.
 		when('/', {
-			templateUrl: '/app/notelist/noteList.html',
+			templateUrl: '/app/note/views/noteList.html',
 			controller: 'noteListCtrl'
 		}).
 		when('/:username/:slug', {
-			templateUrl: '/app/noteview/noteView.html',
+			templateUrl: '/app/note/views/noteView.html',
 			controller: 'noteViewCtrl'
 		}).
 		when('/search', {
-			templateUrl: '/app/notelist/noteList.html',
+			templateUrl: '/app/note/views/noteList.html',
 			controller: 'searchCtrl'
 		}).
 		when('/register', {
-			templateUrl: '/app/userregistration/userRegistration.html',
+			templateUrl: '/app/user/views/userRegistration.html',
 			controller: 'userRegistrationCtrl'
 		}).
 		when('/create', {
-			templateUrl: '/app/notecreation/noteCreation.html',
+			templateUrl: '/app/note/views/noteCreation.html',
 			controller: 'noteCreationCtrl'
 		}).
 		when('/login', {
-			templateUrl: '/app/userlogin/userLogin.html',
+			templateUrl: '/app/user/views/userLogin.html',
 			controller: 'userLoginCtrl'
 		}).
 		when('/:username', {
-			templateUrl: '/app/usernotelist/userNoteList.html',
+			templateUrl: '/app/user/views/userNoteList.html',
 			controller: 'userNoteListCtrl'
 		}).
 		otherwise({
 			redirectTo: '/'
 		});
-}
-]);
+}]);
 
 often.directive('onFinishRender', function ($timeout) {
 	return {

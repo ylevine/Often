@@ -1,9 +1,0 @@
-angular.module('oftenControllers')
-	.controller('noteViewCtrl', ['$scope', '$routeParams', 'noteViewSvc', function ($scope, $routeParams, noteViewSvc) {
-		$scope.loading = true;
-
-		noteViewSvc.getNote($routeParams.username,  $routeParams.slug, function(data) {
-			$scope.note = data;
-			$scope.loading = false;
-		})
-	}]);

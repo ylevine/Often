@@ -1,9 +1,9 @@
 angular.module('oftenControllers')
-	.controller('noteListCtrl', ['$scope', 'noteListSvc', function ($scope, noteListSvc) {
+	.controller('noteListCtrl', ['$scope', 'noteSvc', function ($scope, noteSvc) {
 		$scope.loading = true;
         $scope.notes = [];
 
-		noteListSvc.getAllNotes(function (data) {
+		noteSvc.getAllNotes(function (data) {
 			$scope.notes = data;
 			$scope.loading = false;
 		});

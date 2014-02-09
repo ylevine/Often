@@ -1,9 +1,9 @@
 angular.module('often.directives')
-	.directive('logoff', ['$rootScope', '$location', 'userLogOffSvc',
+	.directive('logoff', ['$rootScope', '$location', 'userSvc',
 		function ($rootScope, $location, userLogOffSvc) {
 			return function (scope, element, attr) {
 				element.on('click', function () {
-					userLogOffSvc.logOff(function () {
+					userSvc.logOff(function () {
 						$rootScope.logged = false;
 						$rootScope.currentUser = "";
 						$location.path("/");

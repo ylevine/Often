@@ -9,7 +9,7 @@ angular.module('often.directives')
                 state: '=ngModel',
                 note: '='
             },
-            controller: function ($scope, StarService) {
+            controller: ['$scope', 'noteSvc', function ($scope, noteSvc) {
                 $scope.starCount = 0;
 
                 $scope.$watch(
@@ -32,11 +32,11 @@ angular.module('often.directives')
                 );
 
                 $scope.toggleStar = function () {
-                    StarService.toggleStar($scope.note, function () {
+	                noteSvc.toggleStar($scope.note, function () {
                         $scope.state = !$scope.state;
                     });
                 };
-            },
-            templateUrl: 'app/star/star.html'
+            }],
+            templateUrl: 'app/note/views/star.html'
         }
     });
