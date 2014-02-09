@@ -1,5 +1,5 @@
 angular.module('oftenServices')
-	.factory('userNoteListSvc', function ($http) {
+	.factory('userNoteListSvc', ['$http', function ($http) {
 		return {
 			getUserNoteList: function(username, successCallBack) {
 				$http.get('/api/note/get/' + username).
@@ -8,4 +8,4 @@ angular.module('oftenServices')
 					});
 			}
 		};
-	});
+	}]);

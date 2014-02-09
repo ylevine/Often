@@ -1,5 +1,5 @@
 angular.module('oftenControllers')
-	.controller('noteCreationCtrl', function ($http, $scope, $location, noteCreationSvc) {
+	.controller('noteCreationCtrl', ['$scope', '$location', 'noteCreationSvc', function ($scope, $location, noteCreationSvc) {
 		$scope.note = {
 			noteTitle: "",
 			noteDesc: "",
@@ -80,8 +80,8 @@ angular.module('oftenControllers')
 				return false;
 			}
 
-			noteCreationSvc.createNote(note, function() {
+			noteCreationSvc.createNote(note, function () {
 				$location.path('/');
 			});
 		};
-	});
+	}]);

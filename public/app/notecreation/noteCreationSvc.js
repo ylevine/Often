@@ -1,5 +1,5 @@
 angular.module('oftenServices')
-	.factory('noteCreationSvc', function ($http) {
+	.factory('noteCreationSvc', ['$http', function ($http) {
 		return {
 			createNote: function (note, successCallBack) {
 				$http.post('/api/note/post', note)
@@ -7,4 +7,4 @@ angular.module('oftenServices')
 						successCallBack();
 					})
 			}}
-	});
+	}]);

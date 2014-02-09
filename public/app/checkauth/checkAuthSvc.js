@@ -1,5 +1,5 @@
 angular.module('oftenServices')
-	.factory('checkAuthSvc', function ($http) {
+	.factory('checkAuthSvc', ['$http', function ($http) {
 		return {
 			checkAuth: function (successCallBack) {
 				$http.get('/user/checkAuth')
@@ -8,4 +8,4 @@ angular.module('oftenServices')
 					});
 			}
 		}
-	});
+	}]);

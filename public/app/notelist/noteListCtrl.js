@@ -1,5 +1,5 @@
 angular.module('oftenControllers')
-	.controller('noteListCtrl', ['$scope', '$http', 'noteListSvc', function ($scope, $http, noteListSvc) {
+	.controller('noteListCtrl', ['$scope', 'noteListSvc', function ($scope, noteListSvc) {
 		$scope.loading = true;
         $scope.notes = [];
 
