@@ -3,7 +3,7 @@ angular.module('oftenControllers')
 		$scope.loading = true;
 
 		noteViewSvc.getNote($routeParams.username,  $routeParams.slug, function(data) {
-			$scope.note = data.note;
+			$scope.note = data;
 			$scope.loading = false;
 		})
 	}]);
