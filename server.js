@@ -15,8 +15,6 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 
-var routes = projRequire('/routes/index');
-
 var app = express();
 
 // all environments
@@ -37,9 +35,19 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' === app.get('env')) {
+if ('development' == app.get('env')) {
+	console.log('----------------------------------------');
+	console.log('Development Mode');
+	console.log('----------------------------------------');
+
+	// I don't know any other way to pass a flag to a module.
+	GLOBAL.allow_sha1_passwords = true;
+
     app.use(express.errorHandler());
 }
+
+// load after error handling added
+var routes = projRequire('/routes/index');
 
 app.get('/', routes.Home.home);
 app.get('/api/note/get', routes.Note.getAll);

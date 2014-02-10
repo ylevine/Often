@@ -2,9 +2,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = mongoose.Types.ObjectId;
 
-/**
- * @param {Mongoose.Connection} db The database connection.
- */
 module.exports = function (db) {
     'use strict';
 
@@ -39,9 +36,6 @@ module.exports = function (db) {
         }
 	});
 
-	/**
-	 * @type {Mongoose.Model}
-	 */
 	var Model = db.model('Notes', schema);
 
 	return {
