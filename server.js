@@ -31,7 +31,15 @@ app.use(express.bodyParser());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
-app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
+
+app.use(
+    require('less-middleware')({
+        src: path.join(__dirname, 'public/stylesheets/less'),
+        dest: path.join(__dirname, 'public/stylesheets'),
+        prefix: '/stylesheets'
+    })
+);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // check for crypt mode on command arguments
