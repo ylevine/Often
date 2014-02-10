@@ -5,5 +5,5 @@ angular.module('oftenControllers')
 				$rootScope.logged = false;
 				$rootScope.currentUser = "";
 				$location.path("/");
-			})
+			});
 		}]);

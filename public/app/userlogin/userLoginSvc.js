@@ -5,7 +5,7 @@ angular.module('oftenServices')
 				$http.post('/user/authenticate', user)
 					.success(function (data) {
 						successCallBack(data);
-					})
+					});
 			}
 		}
 	}]);

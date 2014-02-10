@@ -9,10 +9,10 @@ angular.module('oftenServices')
 					})
 					.error(function (err) {
 						// @todo
-						// here should be some notification systen call
+						// here should be some notification system call
 						// to inform user that he should be logged in first
 						throw new Error(err);
-					})
+					});
 			}
 		}
 	}]);

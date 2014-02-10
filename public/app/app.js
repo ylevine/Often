@@ -89,13 +89,11 @@ often.directive('jadedit', function () {
 					$(deferred.resolve);
 				})
 			).then(function () {
-				var editor = CodeMirror.fromTextArea(element[0], {
+				scope.editor = CodeMirror.fromTextArea(element[0], {
 					lineNumbers: 'true',
 					theme: 'ambiance',
 					readOnly: true
 				});
-
-				scope.editor = editor;
 			});
 	};
 });

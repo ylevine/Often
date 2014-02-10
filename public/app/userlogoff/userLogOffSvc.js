@@ -4,6 +4,6 @@ angular.module('oftenServices')
 			logOff: function (successCallBack) {
 				$http.post('/user/logoff').success(function (data) {
 					successCallBack(data);
-				})
+				});
 			}};
 	}]);

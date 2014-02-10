@@ -11,22 +11,25 @@ angular.module('oftenControllers')
 
 		$scope.updateCode = function (code) {
 			var isValid = true;
-			removeInputFeedback($('#input-code-title'));
-			removeInputFeedback($('#select-language'));
-			removeInputFeedbackEditor($('#codesnippet-textarea'));
+			var $inputCodeTitle = $('#input-code-title');
+			var $selectLanguage = $('#select-language');
+			var $codeSnippetTextarea = $('#codesnippet-textarea');
+			removeInputFeedback($inputCodeTitle);
+			removeInputFeedback($selectLanguage);
+			removeInputFeedbackEditor($codeSnippetTextarea);
 
-			if ($('#input-code-title').val() < 10) {
-				styleFailedInput($('#input-code-title'));
+			if ($inputCodeTitle.val() < 10) {
+				styleFailedInput($inputCodeTitle);
 				isValid = false;
 			}
 
-			if ($('#select-language').val() === "") {
-				styleFailedInput($('#select-language'));
+			if ($selectLanguage.val() === "") {
+				styleFailedInput($selectLanguage);
 				isValid = false;
 			}
 
 			if ($scope.editor.getValue().length === 0) {
-				styleFailedInputEditor($('#codesnippet-textarea'));
+				styleFailedInputEditor($codeSnippetTextarea);
 				isValid = false;
 			}
 
@@ -41,12 +44,12 @@ angular.module('oftenControllers')
 			$scope.editor.setOption('readOnly', true);
 			$scope.code = {};
 
-			$('#codeList tbody').sortable({
+			$('#codeList').find('tbody').sortable({
 				// On order update, also update the codeList array
 				update: function (e, ui) {
 					// Get the order from the table
 					var tableOrder = [];
-					$('#codeList tbody tr').each(function (k, v) {
+					$('#codeList').find('tbody tr').each(function (k, v) {
 						tableOrder.push($(this).children().first().text());
 					});
 					for (var i = 0; i < $scope.note.codeList.length; i++) {
@@ -59,20 +62,26 @@ angular.module('oftenControllers')
 					}
 				}
 			});
+
+			return true;
 		};
 
 		$scope.updateNote = function (note) {
 			var isValid = true;
-			removeInputFeedback($('#input-note-title'));
-			removeInputFeedbackTag($('#input-note-tags'));
 
-			if ($('#input-note-title').val() < 10) {
-				styleFailedInput($('#input-note-title'));
+			var $inputCodeTitle = $('#input-code-title');
+			var $inputNoteTags = $('#input-note-tags');
+
+			removeInputFeedback($inputCodeTitle);
+			removeInputFeedbackTag($inputNoteTags);
+
+			if ($inputCodeTitle.val() < 10) {
+				styleFailedInput($inputCodeTitle);
 				isValid = false;
 			}
 
 			if ($scope.note.noteTags.length < 1) {
-				styleFailedInput($('#input-note-tags'));
+				styleFailedInput($inputNoteTags);
 				isValid = false;
 			}
 
@@ -83,5 +92,7 @@ angular.module('oftenControllers')
 			noteCreationSvc.createNote(note, function () {
 				$location.path('/');
 			});
+
+			return true;
 		};
 	}]);

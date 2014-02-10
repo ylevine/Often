@@ -5,5 +5,5 @@ angular.module('oftenControllers')
 		noteViewSvc.getNote($routeParams.username,  $routeParams.slug, function(data) {
 			$scope.note = data;
 			$scope.loading = false;
-		})
+		});
 	}]);

@@ -5,6 +5,6 @@ angular.module('oftenServices')
 				$http.post('/api/note/post', note)
 					.success(function() {
 						successCallBack();
-					})
+					});
 			}}
 	}]);
