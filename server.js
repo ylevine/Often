@@ -34,15 +34,20 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// check for crypt mode on command arguments
+process.argv.forEach(function(val,index,array){
+	console.log(index+": "+val);
+	if(val.toLowerCase() == 'crypt=sha1') {
+		console.log('----------------------------------------');
+		console.log('Crypt Mode: SHA1');
+		console.log('----------------------------------------');
+		// I don't know any other way to pass a flag to a module.
+		GLOBAL.allow_sha1_passwords = true;
+	}
+});
+
 // development only
 if ('development' == app.get('env')) {
-	console.log('----------------------------------------');
-	console.log('Development Mode');
-	console.log('----------------------------------------');
-
-	// I don't know any other way to pass a flag to a module.
-	GLOBAL.allow_sha1_passwords = true;
-
     app.use(express.errorHandler());
 }
 
