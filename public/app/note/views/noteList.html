@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="masonry-container" masonry="{ 'isFitWidth': 'true', 'transitionDuration': '0' }" column-width="20">
+<div class="masonry-container" masonry="{ 'isFitWidth': 'true', 'transitionDuration': 0 }" column-width="20">
 	<div class="masonry-brick box" ng-repeat="note in notes" on-finish-render="renderComplete">
 		<input type="hidden" id="noteId" ng-bind="note._id" />
 		<p class="date" am-time-ago="note.noteDate"></p>
