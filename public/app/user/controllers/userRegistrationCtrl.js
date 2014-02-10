@@ -3,33 +3,39 @@ angular.module('oftenControllers')
 		function ($scope, $location, $rootScope, userSvc) {
 			$scope.register = function (user) {
 				var isValid = true;
-				removeInputFeedback($('#username'));
-				removeInputFeedback($('#password'));
-				removeInputFeedback($('#confirm'));
-				removeInputFeedback($('#email'));
 
-				if ($('#username').val() < 5) {
-					styleFailedInput($('#username'));
+				var $username = $('#username');
+				var $password = $('#password');
+				var $confirm = $('#confirm');
+				var $email = $('#email');
+
+				removeInputFeedback($username);
+				removeInputFeedback($password);
+				removeInputFeedback($confirm);
+				removeInputFeedback($email);
+
+				if ($username.val() < 5) {
+					styleFailedInput($username);
 					isValid = false;
 				}
 
-				if ($('#email').val() < 5) {
-					styleFailedInput($('#email'));
+				if ($email.val() < 5) {
+					styleFailedInput($email);
 					isValid = false;
 				}
 
-				if ($('#password').val() !== $('#confirm').val()) {
-					styleFailedInput($('#password'));
-					styleFailedInput($('#confirm'));
+				if ($password.val() !== $confirm.val()) {
+					styleFailedInput($password);
+					styleFailedInput($confirm);
 					isValid = false;
 				} else {
-					if ($('#password').val() < 5) {
-						styleFailedInput($('#password'));
+					if ($password.val() < 5) {
+						styleFailedInput($password);
 						isValid = false;
 					}
 
-					if ($('#confirm').val() < 5) {
-						styleFailedInput($('#confirm'));
+					if ($confirm.val() < 5) {
+						styleFailedInput($confirm);
 						isValid = false;
 					}
 				}
@@ -42,6 +48,8 @@ angular.module('oftenControllers')
 					$rootScope.logged = true;
 					$rootScope.currentUser = user.username;
 					$location.path($rootScope.redirectTo === undefined ? '/' + user.username : $rootScope.redirectTo);
-				})
+				});
+
+				return true;
 			};
 		}]);

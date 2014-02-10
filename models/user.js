@@ -1,14 +1,7 @@
-var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var SALT_WORK_FACTOR = 10;
 
-/**
- * User Model
- *
- * @param {Mongoose.Connection} db The database connection.
- */
-module.exports = function (db) {
+module.exports = function (db, crypt) {
     'use strict';
 
 	var schema = new Schema({
@@ -25,57 +18,16 @@ module.exports = function (db) {
             return next();
         }
 
-		// generate a salt
-		bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-			if (err) {
-                return next(err);
-            }
-
-			// hash the password using our new salt
-			bcrypt.hash(user.password, salt, function (err, hash) {
-				if (err) {
-                    return next(err);
-                }
-
-				// override the cleartext password with the hashed one
-				user.password = hash;
-				next();
-
-                return true;
-			});
-
-            return true;
+		crypt.hash(user.password,function(hash){
+			user.password = hash;
+			next();
 		});
 
         return true;
 	});
 
-	/**
-	 * @type {Mongoose.Model}
-	 */
 	var Model = db.model('Users', schema);
 
-	/**
-	 * Private functions.
-	 */
-	function _comparePassword(candidatePassword, userPassword, cb) {
-		bcrypt.compare(candidatePassword, userPassword, function (err, isMatch) {
-			if (err) {
-                return cb(err);
-            }
-
-			cb(null, isMatch);
-            return true;
-		});
-
-        return true;
-	}
-
-	/**
-	 * Creates a new user module.
-	 *
-	 * @constructs
-	 */
 	return {
 		authenticate: function (username, password, fn) {
 			Model.findOne({ username: username}, function (err, user) {
@@ -83,19 +35,21 @@ module.exports = function (db) {
                     throw err;
                 }
 
-				if (user) {
-					_comparePassword(password, user.password, function (err, isMatch) {
-						if (err) {
-                            throw err;
-                        }
-						if (isMatch) {
-							return fn(null, user);
-						}
-						return fn(new Error('Invalid Password!'));
-					});
-				} else {
+				if (!user) {
 					fn(new Error('User Not Found'));
+					return;
 				}
+
+				crypt.compare(password, user.password, function (err, isMatch) {
+					if (err) {
+						throw err;
+					}
+					if (isMatch) {
+						fn(null, user);
+					} else {
+						fn(new Error('Invalid Password!'));
+					}
+				});
 			});
 		},
 
