@@ -35,9 +35,11 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // check for crypt mode on command arguments
-process.argv.forEach(function(val,index,array){
-	console.log(index+": "+val);
-	if(val.toLowerCase() == 'crypt=sha1') {
+process.argv.forEach(function (val, index, array) {
+    'use strict';
+
+	console.log(index + ': ' + val);
+	if(val.toLowerCase() === 'crypt=sha1') {
 		console.log('----------------------------------------');
 		console.log('Crypt Mode: SHA1');
 		console.log('----------------------------------------');
@@ -47,7 +49,7 @@ process.argv.forEach(function(val,index,array){
 });
 
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
     app.use(express.errorHandler());
 }
 
