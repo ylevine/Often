@@ -1,6 +1,6 @@
 angular.module('oftenControllers')
-	.controller('userRegistrationCtrl', ['$scope', '$location', '$rootScope', 'userRegistrationSvc',
-		function ($scope, $location, $rootScope, userRegistrationSvc) {
+	.controller('userRegistrationCtrl', ['$scope', '$location', '$rootScope', 'userSvc',
+		function ($scope, $location, $rootScope, userSvc) {
 			$scope.register = function (user) {
 				var isValid = true;
 
@@ -44,7 +44,7 @@ angular.module('oftenControllers')
 					return false;
 				}
 
-				userRegistrationSvc.registerUser(user, function() {
+				userSvc.registerUser(user, function() {
 					$rootScope.logged = true;
 					$rootScope.currentUser = user.username;
 					$location.path($rootScope.redirectTo === undefined ? '/' + user.username : $rootScope.redirectTo);

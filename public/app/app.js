@@ -1,50 +1,45 @@
 var often = angular.module('often', [
 	'ngRoute',
-    'hljs',
+	'hljs',
 	'wu.masonry',
 	'chieffancypants.loadingBar',
 	'angularMoment',
 	'oftenControllers',
 	'oftenServices',
-    'often.directives',
+	'often.directives',
 	'http-auth-interceptor'
 ]);
 
 often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 	$routeProvider.
 		when('/', {
-			templateUrl: '/app/notelist/noteList.html',
+			templateUrl: '/app/note/views/noteList.html',
 			controller: 'noteListCtrl'
 		}).
 		when('/:username/:slug', {
-			templateUrl: '/app/noteview/noteView.html',
+			templateUrl: '/app/note/views/noteView.html',
 			controller: 'noteViewCtrl'
 		}).
-		when('/search', {
-			templateUrl: '/app/notelist/noteList.html',
-			controller: 'searchCtrl'
-		}).
 		when('/register', {
-			templateUrl: '/app/userregistration/userRegistration.html',
+			templateUrl: '/app/user/views/userRegistration.html',
 			controller: 'userRegistrationCtrl'
 		}).
 		when('/create', {
-			templateUrl: '/app/notecreation/noteCreation.html',
+			templateUrl: '/app/note/views/noteCreation.html',
 			controller: 'noteCreationCtrl'
 		}).
 		when('/login', {
-			templateUrl: '/app/userlogin/userLogin.html',
+			templateUrl: '/app/user/views/userLogin.html',
 			controller: 'userLoginCtrl'
 		}).
 		when('/:username', {
-			templateUrl: '/app/usernotelist/userNoteList.html',
+			templateUrl: '/app/user/views/userNoteList.html',
 			controller: 'userNoteListCtrl'
 		}).
 		otherwise({
 			redirectTo: '/'
 		});
-}
-]);
+}]);
 
 often.directive('onFinishRender', function ($timeout) {
 	return {
@@ -119,44 +114,6 @@ often.directive('taginput', function () {
 				scope.$apply();
 			}
 		});
-	};
-});
-
-often.directive('searchinput', function ($location, $http) {
-	return function (scope, element, attr) {
-		var typingTimer;
-		var typingInterval = 500;
-
-		element.on('keyup', function (e) {
-			if (element[0].value.length > 2) {
-				typingTimer = setTimeout(search, typingInterval);
-			}
-		});
-
-		element.on('blur', function (e) {
-			element[0].value = "";
-		});
-
-		element.on('keydown', function () {
-			clearInterval(typingTimer);
-		});
-
-		function search() {
-			scope.notes = [];
-			scope.loading = true;
-
-			if ($location.$$url.indexOf('search') === -1) {
-				$location.path('/search');
-				scope.$apply();
-			}
-
-			scope.search = $http.get('/api/note/search', {
-				params: {searchToken: element[0].value}
-			}).success(function (data) {
-					scope.notes = data.allNotes;
-					scope.loading = false;
-				});
-		}
 	};
 });
 

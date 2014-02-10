@@ -1,6 +1,6 @@
 angular.module('oftenControllers')
-	.controller('userLoginCtrl', ['$scope', 'cfpLoadingBar', '$location', '$rootScope', 'userLoginSvc',
-		function ($scope, cfpLoadingBar, $location, $rootScope, userLoginSvc) {
+	.controller('userLoginCtrl', ['$scope', 'cfpLoadingBar', '$location', '$rootScope', 'userSvc',
+		function ($scope, cfpLoadingBar, $location, $rootScope, userSvc) {
 			$scope.loading = true;
 
 			$scope.user = {};
@@ -27,7 +27,7 @@ angular.module('oftenControllers')
 				}
 
 				$scope.user = angular.copy(user);
-				userLoginSvc.login(user, function (data) {
+				userSvc.login(user, function (data) {
 					if (data.isSuccessful) {
 						styleSuccessInput($username);
 						styleSuccessInput($password);
