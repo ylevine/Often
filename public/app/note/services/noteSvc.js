@@ -3,7 +3,7 @@ angular.module('oftenServices')
 		return {
 			createNote: function (note, successCallBack) {
 				$http.post('/api/note/post', note)
-					.success(function() {
+					.success(function () {
 						successCallBack();
 					})
 			},
@@ -26,12 +26,24 @@ angular.module('oftenServices')
 				if (!username || !noteSlug || !successCallBack) {
 					return null;
 				} else {
-
 					$http.get('/api/note/get/' + username + '/' + noteSlug).
 						success(function (data) {
 							successCallBack(data.note);
 						});
 				}
+			},
+			search: function (searchToken, successCallBack) {
+				$http.get('/api/note/search', {
+					params: {searchToken: searchToken }
+				}).success(function (data) {
+						successCallBack(data.allNotes);
+					});
+			},
+			getUserNoteList: function (username, successCallBack) {
+				$http.get('/api/note/get/' + username).
+					success(function (data) {
+						successCallBack(data.allNotes);
+					});
 			},
 			toggleStar: function (note, successFn) {
 				$http

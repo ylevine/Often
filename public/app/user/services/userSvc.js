@@ -8,12 +8,6 @@ angular.module('oftenServices')
 					}
 				});
 			},
-			getUserNoteList: function(username, successCallBack) {
-				$http.get('/api/note/get/' + username).
-					success(function (data) {
-						successCallBack(data.allNotes);
-					});
-			},
 			logOff: function (successCallBack) {
 				$http.post('/user/logoff').success(function (data) {
 					successCallBack(data);

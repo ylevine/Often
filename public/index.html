@@ -25,7 +25,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/#/">Code You < <span class="app-title">Often!</span> /> Use</a>
+			<a class="navbar-brand" href="/#/" searchreset>Code You < <span class="app-title">Often!</span> /> Use</a>
 
 		</div>
 
@@ -34,7 +34,7 @@
 				<li>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Type to start searching!" searchinput>
+							<input type="text" id="search-input" class="form-control" placeholder="Type to start searching!" search>
 						</div>
 					</form>
 				</li>
@@ -115,9 +115,11 @@
 <script type="text/javascript" src="app/user/controllers/userLoginCtrl.js"></script>
 <script type="text/javascript" src="app/user/controllers/userLogOffCtrl.js"></script>
 <script type="text/javascript" src="app/user/controllers/userRegistrationCtrl.js"></script>
-<script type="text/javascript" src="app/user/controllers/userNoteListCtrl.js"></script>
+<script type="text/javascript" src="app/note/controllers/userNoteListCtrl.js"></script>
 <script type="text/javascript" src="app/user/directives/userLogOffDrtv.js"></script>
 <script type="text/javascript" src="app/note/directives/starDrtv.js"></script>
+<script type="text/javascript" src="app/note/directives/searchDrtv.js"></script>
+<script type="text/javascript" src="app/note/directives/searchResetDrtv.js"></script>
 <script type="text/javascript" src="app/note/services/noteSvc.js"></script>
 <script type="text/javascript" src="app/user/services/userSvc.js"></script>
 

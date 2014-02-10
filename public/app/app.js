@@ -20,10 +20,6 @@ often.config(['$routeProvider', function ($routeProvider, oftenControllers) {
 			templateUrl: '/app/note/views/noteView.html',
 			controller: 'noteViewCtrl'
 		}).
-		when('/search', {
-			templateUrl: '/app/note/views/noteList.html',
-			controller: 'searchCtrl'
-		}).
 		when('/register', {
 			templateUrl: '/app/user/views/userRegistration.html',
 			controller: 'userRegistrationCtrl'
@@ -120,44 +116,6 @@ often.directive('taginput', function () {
 				scope.$apply();
 			}
 		});
-	};
-});
-
-often.directive('searchinput', function ($location, $http) {
-	return function (scope, element, attr) {
-		var typingTimer;
-		var typingInterval = 500;
-
-		element.on('keyup', function (e) {
-			if (element[0].value.length > 2) {
-				typingTimer = setTimeout(search, typingInterval);
-			}
-		});
-
-		element.on('blur', function (e) {
-			element[0].value = "";
-		});
-
-		element.on('keydown', function () {
-			clearInterval(typingTimer);
-		});
-
-		function search() {
-			scope.notes = [];
-			scope.loading = true;
-
-			if ($location.$$url.indexOf('search') === -1) {
-				$location.path('/search');
-				scope.$apply();
-			}
-
-			scope.search = $http.get('/api/note/search', {
-				params: {searchToken: element[0].value}
-			}).success(function (data) {
-					scope.notes = data.allNotes;
-					scope.loading = false;
-				});
-		}
 	};
 });
 

@@ -1,12 +1,12 @@
 angular.module('oftenControllers')
-	.controller('userNoteListCtrl', [ '$scope', '$routeParams', '$rootScope', '$location', 'cfpLoadingBar', 'userSvc',
-		function ($scope, $routeParams, $rootScope, $location, cfpLoadingBar, userSvc) {
+	.controller('userNoteListCtrl', [ '$scope', '$routeParams', '$rootScope', '$location', 'cfpLoadingBar', 'noteSvc' , 'userSvc',
+		function ($scope, $routeParams, $rootScope, $location, cfpLoadingBar, noteSvc, userSvc) {
 			$scope.loading = true;
 
 			userSvc.checkAuth(function () {
 				$rootScope.logged = true;
 
-				userSvc.getUserNoteList($routeParams.username, function (allNotes) {
+				noteSvc.getUserNoteList($routeParams.username, function (allNotes) {
 					$scope.notes = allNotes;
 					$scope.loading = false;
 				});
