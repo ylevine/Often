@@ -54,6 +54,23 @@ app.post('/user/authenticate', routes.User.authenticate);
 app.post('/user/logoff', routes.User.logoff);
 app.post('/user/register', routes.User.register);
 
+// catch unhandled errors,  instead of exiting server.js.
+process.on('uncaughtException', function(err) {
+	'use strict';
+	if(err.stack !== 'undefined')
+	{
+		console.log(err.stack);
+		return;
+	}
+	console.log(err);
+});
+
+// record when the server exists
+process.on('exit',function(code){
+	'use strict';
+	console.log('About to exit with code:', code);
+});
+
 http.createServer(app).listen(app.get('port'), function () {
     'use strict';
 
