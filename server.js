@@ -14,6 +14,7 @@ GLOBAL.projRequire = function (path) {
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var namespace = require('express-namespace');
 
 var app = express();
 
@@ -63,19 +64,29 @@ if ('development' === app.get('env')) {
 
 // load after error handling added
 var routes = projRequire('/routes/index');
-
 app.get('/', routes.Home.home);
-app.get('/api/note/get', routes.Note.getAll);
-app.get('/api/note/get/:username', routes.Note.getUserNotes);
-app.get('/api/note/get/:username/:slug', routes.Note.getNote);
-app.post('/api/note/post', routes.Note.saveNote);
-app.get('/api/note/search', routes.Note.getSearchedNotes);
-app.get('/api/note/:noteId/star', routes.Note.star);
 
-app.get('/user/checkAuth', routes.User.isAuthenticated);
-app.post('/user/authenticate', routes.User.authenticate);
-app.post('/user/logoff', routes.User.logoff);
-app.post('/user/register', routes.User.register);
+app.namespace('/api', function () {
+    'use strict';
+
+    app.namespace('/note', function () {
+        app.get('/get', routes.Note.getAll);
+        app.get('/get/:username', routes.Note.getUserNotes);
+        app.get('/get/:username/:slug', routes.Note.getNote);
+        app.post('/post', routes.Note.saveNote);
+        app.get('/search', routes.Note.getSearchedNotes);
+        app.get('/:noteId/star', routes.Note.star);
+    });
+});
+
+app.namespace('/user', function () {
+    'use strict';
+
+    app.get('/checkAuth', routes.User.isAuthenticated);
+    app.post('/authenticate', routes.User.authenticate);
+    app.post('/logoff', routes.User.logoff);
+    app.post('/register', routes.User.register);
+});
 
 // catch unhandled errors,  instead of exiting server.js.
 process.on('uncaughtException', function(err) {
