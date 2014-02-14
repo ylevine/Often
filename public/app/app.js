@@ -103,20 +103,6 @@ often.directive('lang', function () {
 	};
 });
 
-often.directive('taginput', function () {
-	return function (scope, element, attr) {
-		element.on('keypress', function (e) {
-			if (String.fromCharCode(e.keyCode).match(/,|;/)) {
-				//$('#tag-container').append('<button class="btn btn-warning btn-tag">' + element[0].value + '</button>')
-				scope.note.noteTags.push({ tagName: element[0].value });
-				element[0].value = "";
-				e.preventDefault();
-				scope.$apply();
-			}
-		});
-	};
-});
-
 angular.module('oftenControllers', ['oftenServices', 'chieffancypants.loadingBar']);
 angular.module('oftenServices', []);
 angular.module('often.directives', ['oftenServices']);
