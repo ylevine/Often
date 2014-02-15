@@ -20,7 +20,7 @@
         <often-star note="note" ng-model="note.starredByLoggedIn"></often-star>
 
 		<div class="tag-container">
-			<button class="btn btn-warning btn-tag" ng-repeat="tag in note.noteTags" ng-bind="tag.tagName"></button>
+			<label class="label label-info tag" ng-repeat="tag in note.noteTags" ng-bind="tag.tagName"></label>
 		</div>
 
 		<ul class="nav nav-pills nav-stacked comment-button" ng-show="{{note.comments.length > 0}}">

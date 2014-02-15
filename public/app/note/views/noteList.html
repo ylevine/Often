@@ -18,7 +18,8 @@
 			</figure>
 		</div>
 		<div class="tag-container">
-			<button class="btn btn-warning btn-tag" ng-bind="tag.tagName" ng-repeat="tag in note.noteTags" ></button>		</div>
+			<label class="label label-info tag" ng-bind="tag.tagName" ng-repeat="tag in note.noteTags"></label>
+		</div>
 		<often-star ng-model="note.starredByLoggedIn" note="note"></often-star>
 	</div>
 </div>
