@@ -36,7 +36,8 @@ angular.module('often.directives')
 				});
 
 				function isTagSeparator(e) {
-					return e.keyCode == 186 || e.keyCode == 188
+					var charCode = (typeof e.which == "number") ? e.which : e.keyCOde;
+					return charCode == 186 || charCode == 188 || charCode == 59;
 				}
 			};
 		}]);

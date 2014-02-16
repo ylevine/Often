@@ -157,12 +157,6 @@ exports.getFilteredNotes = function (req, res) {
 	});
 };
 
-exports.getSearchedNotes = function (req, res) {
-    'use strict';
-
-
-};
-
 exports.getUserNotes = function (req, res) {
     'use strict';
 
