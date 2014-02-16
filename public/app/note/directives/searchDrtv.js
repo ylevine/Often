@@ -31,7 +31,7 @@ angular.module('often.directives')
 					element.val("");
 				});
 
-				scope.$on('searchResetEvent', function () {
+				scope.$on('filterReset', function () {
 					element.val("");
 				});
 

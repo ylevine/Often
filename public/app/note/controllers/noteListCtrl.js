@@ -10,30 +10,46 @@ angular.module('oftenControllers')
 				search: ""
 			};
 
-			noteSvc.getAllNotes(function (data) {
-				$scope.notes = data;
-				$scope.loading = false;
-			});
+			getAllNotes();
 
 			$rootScope.$on('filterTagChange', function(event, value) {
 				$scope.filter.tags = [];
 				$scope.filter.tags.push(value);
 				$scope.$apply();
-				refreshNoteList();
+				getFilteredNoteList();
 			});
 
 			$rootScope.$on('filterSearchChange', function(event, value) {
 				$scope.filter.search = value;
-				refreshNoteList();
+				getFilteredNoteList();
 			});
 
 			$rootScope.$on('filterLanguageChange', function(event, value) {
 				$scope.filter.language = value;
-				refreshNoteList();
+				getFilteredNoteList();
 			});
 
-			function refreshNoteList() {
+			$rootScope.$on('filterReset', function(event, value) {
+				$scope.filter = {
+					resultCount: -1,
+					language: "",
+					tags: [],
+					search: ""
+				};
+
+				getAllNotes();
+			});
+
+			function getFilteredNoteList() {
 				noteSvc.filter($scope.filter, function(data) {
+					$scope.filter.resultCount = data.length;
+					$scope.notes = data;
+					$scope.loading = false;
+				});
+			}
+
+			function getAllNotes() {
+				noteSvc.getAllNotes(function (data) {
 					$scope.notes = data;
 					$scope.loading = false;
 				});
