@@ -24,11 +24,6 @@ angular.module('oftenControllers')
 				getFilteredNoteList();
 			});
 
-			$rootScope.$on('filterLanguageChange', function(event, value) {
-				$scope.filter.language = value;
-				getFilteredNoteList();
-			});
-
 			$rootScope.$on('filterReset', function(event, value) {
 				$scope.filter = {
 					resultCount: -1,
@@ -37,9 +32,6 @@ angular.module('oftenControllers')
 					search: ""
 				};
 				
-				//TODO: Handle it from languageSelelet directive
-				$('#filter-language-select').val('');
-
 				getAllNotes();
 			});
 

@@ -37,7 +37,9 @@ angular.module('oftenControllers')
 
 				code.codeSnippet = $scope.editor.getValue();
 				$scope.note.codeList.push(code);
-				console.log($scope.note.codeList);
+				$scope.note.noteTags.push({
+					tagName: code.codeParser
+				});
 				$scope.editor.setValue("");
 				$scope.editor.setOption('readOnly', true);
 				$scope.code = {};
