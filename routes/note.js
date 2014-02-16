@@ -35,23 +35,17 @@ exports.getFilteredNotes = function (req, res) {
 
 	function filterNotesByTags(notes, tags) {
 		var result = [];
-
+		
 		for (var i = 0; i < notes.length; i++) {
 			var isMatch = false;
-
-			for (var tag in tags) {
-				for (var noteTag in notes.noteTags) {
-					if (tag.toLowerCase() == noteTag.tagName.toLowerCase()) {
-						isMatch = true;
-						break;
-					}
-				}
-
-				if (isMatch) {
+			for (var noteTag in notes[i].noteTags) {
+				var currentTagName = notes[i].noteTags[noteTag].tagName;
+				if (currentTagName && currentTagName.toLowerCase() === tags.toLowerCase()) {
+					isMatch = true;
 					break;
 				}
 			}
-
+			
 			if (isMatch) {
 				result.push(notes[i]);
 			}			
@@ -66,8 +60,8 @@ exports.getFilteredNotes = function (req, res) {
 		for (var i = 0; i <notes.length; i++) {
 			var isMatch = false;
 			for (var z = 0; z < notes[i].codeList.length; z++) {
-				var currentCodeLanguage = notes[i].codeList[z].codeLang;
-				if (currentCodeLanguage && currentCodeLanguage.toLowerCase() === lang) {
+				var currentCodeLanguage = notes[i].codeList[z].codeParser;
+				if (currentCodeLanguage && currentCodeLanguage.toLowerCase() === lang.toLowerCase()) {
 					isMatch = true;
 					break;
 				};
@@ -78,7 +72,7 @@ exports.getFilteredNotes = function (req, res) {
 			}
 		}
 
-		return notes;
+		return result;
 	};
 
 	// TODO:IMPROVE SEARCH	

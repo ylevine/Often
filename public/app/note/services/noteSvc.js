@@ -32,13 +32,6 @@ angular.module('oftenServices')
 						});
 				}
 			},
-			search: function (searchToken, successCallBack) {
-				$http.get('/api/note/search', {
-					params: {searchToken: searchToken }
-				}).success(function (data) {
-						successCallBack(data.allNotes);
-					});
-			},
 			filter: function(filter, successCallBack) {
 				$http.get('/api/note/filter', {
 					params: {

@@ -36,6 +36,9 @@ angular.module('oftenControllers')
 					tags: [],
 					search: ""
 				};
+				
+				//TODO: Handle it from languageSelelet directive
+				$('#filter-language-select').val('');
 
 				getAllNotes();
 			});
