@@ -30,12 +30,59 @@ exports.getAll = function (req, res) {
 	});
 };
 
-exports.getSearchedNotes = function (req, res) {
-    'use strict';
+exports.getFilteredNotes = function (req, res) {
+    'user string';
 
-	models.Note.getAll(function (notes) {
-		var searchToken = req.query.searchToken.toLowerCase();
+	function filterNotesByTags(notes, tags) {
+		var result = [];
 
+		for (var i = 0; i < notes.length; i++) {
+			var isMatch = false;
+
+			for (var tag in tags) {
+				for (var noteTag in notes.noteTags) {
+					if (tag.toLowerCase() == noteTag.tagName.toLowerCase()) {
+						isMatch = true;
+						break;
+					}
+				}
+
+				if (isMatch) {
+					break;
+				}
+			}
+
+			if (isMatch) {
+				result.push(notes[i]);
+			}			
+		}
+
+		return result;
+	};
+
+	function filterNotesByLanguage(notes, lang) {
+		var result = [];
+
+		for (var i = 0; i <notes.length; i++) {
+			var isMatch = false;
+			for (var z = 0; z < notes[i].codeList.length; z++) {
+				var currentCodeLanguage = notes[i].codeList[z].codeLang;
+				if (currentCodeLanguage && currentCodeLanguage.toLowerCase() === lang) {
+					isMatch = true;
+					break;
+				};
+			}
+
+			if (isMatch) {
+				result.push(notes[i]);
+			}
+		}
+
+		return notes;
+	};
+
+	// TODO:IMPROVE SEARCH	
+	function searchNote(notes, searchToken) {
 		var resultData = [];
 
 		for (var i = 0; i < notes.length; i++) {
@@ -85,10 +132,35 @@ exports.getSearchedNotes = function (req, res) {
 			}
 		}
 
+		return resultData;
+	};
+
+	models.Note.getAll(function (notes) {
+		var lang = req.query.language;
+		if (lang) {
+			notes = filterNotesByLanguage(notes, lang);
+		}
+
+		var tags = req.query.tags;
+		if (tags) {
+			notes = filterNotesByTags(notes, tags);
+		}
+
+		var search = req.query.search.toLowerCase();
+		if (search) {
+			notes = searchNote(notes, search);
+		}
+
 		res.json({
-			allNotes: resultData
+			filteredNotes: notes
 		});
 	});
+};
+
+exports.getSearchedNotes = function (req, res) {
+    'use strict';
+
+
 };
 
 exports.getUserNotes = function (req, res) {

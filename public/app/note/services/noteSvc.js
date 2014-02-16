@@ -39,6 +39,17 @@ angular.module('oftenServices')
 						successCallBack(data.allNotes);
 					});
 			},
+			filter: function(filter, successCallBack) {
+				$http.get('/api/note/filter', {
+					params: {
+						language: filter.language,
+						search: filter.search,
+						tags: filter.tags
+					}
+				}).success(function (data) {
+					successCallBack(data.filteredNotes);
+				});
+			},
 			getUserNoteList: function (username, successCallBack) {
 				$http.get('/api/note/get/' + username).
 					success(function (data) {

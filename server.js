@@ -77,6 +77,7 @@ app.namespace('/api', function () {
         app.get('/get/:username/:slug', routes.Note.getNote);
         app.post('/post', routes.Note.saveNote);
         app.get('/search', routes.Note.getSearchedNotes);
+		app.get('/filter', routes.Note.getFilteredNotes);
         app.get('/:noteId/star', routes.Note.star);
     });
 });

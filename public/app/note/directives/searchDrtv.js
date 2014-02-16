@@ -10,21 +10,19 @@ angular.module('often.directives')
 					if (element[0].value != previousSearch) {
 						previousSearch = element[0].value;
 
-						var ctrlScope = scope.$$childTail;
-						ctrlScope.loading = true;
-						ctrlScope.notes = [];
-
-						// Search when typing stopes.
 						typingTimer = setTimeout(function () {
-							noteSvc.search(element[0].value, function (data) {
-								ctrlScope.notes = data;
-								ctrlScope.loading = false;
-							});
+							scope.$emit('filterSearchChange', element[0].value);
 						}, typingInterval);
 					}
 				});
 
-				element.on('keydown', function () {
+				element.on('keydown', function (e) {
+					if (isTagSeparator(e)) {
+						scope.$emit('filterTagChange', element[0].value);
+						element[0].value = "";
+						e.preventDefault();
+					}
+
 					clearInterval(typingTimer);
 				});
 
@@ -35,6 +33,10 @@ angular.module('often.directives')
 
 				scope.$on('searchResetEvent', function () {
 					element.val("");
-				})
+				});
+
+				function isTagSeparator(e) {
+					return e.keyCode == 186 || e.keyCode == 188
+				}
 			};
 		}]);
