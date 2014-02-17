@@ -30,12 +30,62 @@ exports.getAll = function (req, res) {
 	});
 };
 
-exports.getSearchedNotes = function (req, res) {
+exports.getFilteredNotes = function (req, res) {
     'use strict';
 
-	models.Note.getAll(function (notes) {
-		var searchToken = req.query.searchToken.toLowerCase();
+	// Checks tagToSearch is contained in tagList
+	function isTagMatch(tagToSearch, tagList) {
+		var isMatch = false;
 
+		for (var tag in tagList) {
+			if (tagList[tag].tagName != undefined && tagToSearch === tagList[tag].tagName.toLowerCase()) {
+				isMatch = true;
+				break;
+			}
+		}
+
+		return isMatch;
+	}
+
+	function filterNotesByTags(notes, tags) {
+		var result = [];
+		
+		for (var i = 0; i < notes.length; i++) {
+			var isMatch = false;
+
+			// Single Tag
+			if (typeof tags === 'string') {
+				isMatch = isTagMatch(tags, notes[i].noteTags);
+			}	
+			else if (tags instanceof Array) {
+				for (var t in tags) {
+					var tagToSearch = undefined;
+
+					if (!tags[t]) {
+						continue;
+					} else {
+						tagToSearch = tags[t].toLowerCase();
+					}
+
+					isMatch = isTagMatch(tagToSearch, notes[i].noteTags);
+					if (!isMatch) {
+						break;
+					}
+				}
+			} else {
+				throw new Error("Unexpected type for tags.");
+			}
+
+			if (isMatch) {
+				result.push(notes[i]);
+			}
+		}
+
+		return result;
+	};
+
+	// TODO:IMPROVE SEARCH	
+	function searchNote(notes, searchToken) {
 		var resultData = [];
 
 		for (var i = 0; i < notes.length; i++) {
@@ -85,8 +135,22 @@ exports.getSearchedNotes = function (req, res) {
 			}
 		}
 
+		return resultData;
+	};
+
+	models.Note.getAll(function (notes) {
+		var tags = req.query.tags;
+		if (tags) {
+			notes = filterNotesByTags(notes, tags);
+		}
+
+		var search = req.query.search.toLowerCase();
+		if (search) {
+			notes = searchNote(notes, search);
+		}
+
 		res.json({
-			allNotes: resultData
+			filteredNotes: notes
 		});
 	});
 };
