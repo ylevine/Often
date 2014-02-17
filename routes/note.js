@@ -31,7 +31,7 @@ exports.getAll = function (req, res) {
 };
 
 exports.getFilteredNotes = function (req, res) {
-    'user stringi';
+    'use strict';
 
 	// Checks tagToSearch is contained in tagList
 	function isTagMatch(tagToSearch, tagList) {
