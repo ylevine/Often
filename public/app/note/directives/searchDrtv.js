@@ -36,7 +36,7 @@ angular.module('often.directives')
 				});
 
 				function isTagSeparator(e) {
-					var charCode = (typeof e.which == "number") ? e.which : e.keyCOde;
+					var charCode = e.which || e.keyCOde;
 					return charCode == 186 || charCode == 188 || charCode == 59;
 				}
 			};

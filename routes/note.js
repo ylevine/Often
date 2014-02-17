@@ -56,7 +56,8 @@ exports.getFilteredNotes = function (req, res) {
 			// Single Tag
 			if (typeof tags === 'string') {
 				isMatch = isTagMatch(tags, notes[i].noteTags);
-			} else {
+			}	
+			else if (tags instanceof Array) {
 				for (var t in tags) {
 					var tagToSearch = undefined;
 
@@ -71,6 +72,8 @@ exports.getFilteredNotes = function (req, res) {
 						break;
 					}
 				}
+			} else {
+				throw new Error("Unexpected type for tags.");
 			}
 
 			if (isMatch) {
