@@ -5,7 +5,7 @@ module.exports = function (config) {
 	config.set({
 
 		// base path, that will be used to resolve files and exclude
-		basePath: '..',
+		basePath: '../',
 
 
 		// frameworks to use
@@ -14,13 +14,13 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-			'public/bower_components/angular/angular.js',
-			'public/bower_components/angular-mocks/angular-mocks.js',
+			'../public/bower_components/angular/angular.js',
+			'../public/bower_components/angular-mocks/angular-mocks.js',
 			// OftenControllers dependencies
-			'public/bower_components/angular-loading-bar/build/loading-bar.min.js',
-			'public/app/app.js',
-			'public/app/**/**.js',
-			'test/unit/public/app/**/*Spec.js'
+			'../public/bower_components/angular-loading-bar/build/loading-bar.min.js',
+			'../public/app/app.js',
+			'../public/app/**/**.js',
+			'../test/unit/public/app/**/*Spec.js'
 		],
 
 

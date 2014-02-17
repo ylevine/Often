@@ -1,0 +1,34 @@
+{
+  "name": "Often",
+  "version": "0.0.1-20",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "jade": "*",
+    "less-middleware": "*",
+    "mongoose": "*",
+    "bcrypt": "*",
+    "jasmine-node": "*",
+    "phantomjs": "*",
+    "express-namespace": "~0.1.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "jshint-stylish": "~0.1.5"
+  },
+  "subdomain": "Often",
+  "domains": [
+    "often.io",
+    "www.often.io"
+  ],
+  "engines": {
+    "node": "0.10.x"
+  }
+}
