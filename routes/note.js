@@ -81,27 +81,6 @@ exports.getFilteredNotes = function (req, res) {
 		return result;
 	};
 
-	function filterNotesByLanguage(notes, lang) {
-		var result = [];
-
-		for (var i = 0; i <notes.length; i++) {
-			var isMatch = false;
-			for (var z = 0; z < notes[i].codeList.length; z++) {
-				var currentCodeLanguage = notes[i].codeList[z].codeParser;
-				if (currentCodeLanguage && currentCodeLanguage.toLowerCase() === lang.toLowerCase()) {
-					isMatch = true;
-					break;
-				};
-			}
-
-			if (isMatch) {
-				result.push(notes[i]);
-			}
-		}
-
-		return result;
-	};
-
 	// TODO:IMPROVE SEARCH	
 	function searchNote(notes, searchToken) {
 		var resultData = [];
@@ -157,11 +136,6 @@ exports.getFilteredNotes = function (req, res) {
 	};
 
 	models.Note.getAll(function (notes) {
-		var lang = req.query.language;
-		if (lang) {
-			notes = filterNotesByLanguage(notes, lang);
-		}
-
 		var tags = req.query.tags;
 		if (tags) {
 			notes = filterNotesByTags(notes, tags);

@@ -35,7 +35,6 @@ angular.module('oftenServices')
 			filter: function(filter, successCallBack) {
 				$http.get('/api/note/filter', {
 					params: {
-						language: filter.language,
 						search: filter.search,
 						tags: filter.tags
 					}
