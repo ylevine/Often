@@ -31,24 +31,51 @@ exports.getAll = function (req, res) {
 };
 
 exports.getFilteredNotes = function (req, res) {
-    'user string';
+    'user stringi';
+
+	// Checks tagToSearch is contained in tagList
+	function isTagMatch(tagToSearch, tagList) {
+		var isMatch = false;
+
+		for (var tag in tagList) {
+			if (tagList[tag].tagName != undefined && tagToSearch === tagList[tag].tagName.toLowerCase()) {
+				isMatch = true;
+				break;
+			}
+		}
+
+		return isMatch;
+	}
 
 	function filterNotesByTags(notes, tags) {
 		var result = [];
 		
 		for (var i = 0; i < notes.length; i++) {
 			var isMatch = false;
-			for (var noteTag in notes[i].noteTags) {
-				var currentTagName = notes[i].noteTags[noteTag].tagName;
-				if (currentTagName && currentTagName.toLowerCase() === tags.toLowerCase()) {
-					isMatch = true;
-					break;
+
+			// Single Tag
+			if (typeof tags === 'string') {
+				isMatch = isTagMatch(tags, notes[i].noteTags);
+			} else {
+				for (var t in tags) {
+					var tagToSearch = undefined;
+
+					if (!tags[t]) {
+						continue;
+					} else {
+						tagToSearch = tags[t].toLowerCase();
+					}
+
+					isMatch = isTagMatch(tagToSearch, notes[i].noteTags);
+					if (!isMatch) {
+						break;
+					}
 				}
 			}
-			
+
 			if (isMatch) {
 				result.push(notes[i]);
-			}			
+			}
 		}
 
 		return result;

@@ -13,7 +13,6 @@ angular.module('oftenControllers')
 			getAllNotes();
 
 			$rootScope.$on('filterTagChange', function(event, value) {
-				$scope.filter.tags = [];
 				$scope.filter.tags.push(value);
 				$scope.$apply();
 				getFilteredNoteList();
