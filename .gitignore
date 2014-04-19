@@ -1,6 +1,9 @@
 node_modules
-dist
+public
 .tmp
 .sass-cache
 app/bower_components
-.idea/
+heroku
+/views
+dist
+.idea
